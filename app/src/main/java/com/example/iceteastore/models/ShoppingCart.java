@@ -4,11 +4,13 @@ public class ShoppingCart {
     private String username;
     private int productId;
     private int quantity;
+    private double price;
 
-    public ShoppingCart(String username, int productId, int quantity) {
+    public ShoppingCart(String username, int productId, int quantity, double price) {
         this.username = username;
         this.productId = productId;
         this.quantity = quantity;
+        this.price = price;
     }
 
     public String getUsername() {
@@ -33,5 +35,13 @@ public class ShoppingCart {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 }
