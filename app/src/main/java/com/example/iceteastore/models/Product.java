@@ -7,14 +7,36 @@ public class Product {
     private String image;
     private int quantity;
     private double price;
+    private float rating;  // Thêm thuộc tính rating
+    private int reviews;   // Thêm thuộc tính reviews
 
-    public Product(int id, String name, String description, String image, int quantity, double price) {
+
+
+    public Product(int id, String name, String description, String image, int quantity, double price, float rating, int reviews) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.image = image;
         this.quantity = quantity;
         this.price = price;
+        this.rating = rating;
+        this.reviews = reviews;
+    }
+
+    public float getRating() {
+        return rating;
+    }
+
+    public void setRating(float rating) {
+        this.rating = rating;
+    }
+
+    public int getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(int reviews) {
+        this.reviews = reviews;
     }
 
     public int getId() {

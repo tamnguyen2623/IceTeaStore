@@ -1,0 +1,76 @@
+<androidx.cardview.widget.CardView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="8dp"
+    android:background="@android:color/white"
+    android:layout_margin="8dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp">
+
+        <!-- Ảnh sản phẩm -->
+        <ImageView
+            android:id="@+id/ivProductImage"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <!-- Tên sản phẩm -->
+        <TextView
+            android:id="@+id/tvProductName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Egg Toast"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"
+            app:layout_constraintStart_toEndOf="@id/ivProductImage"
+            app:layout_constraintTop_toTopOf="@id/ivProductImage"
+            app:layout_constraintEnd_toStartOf="@id/ivFavorite"
+            android:paddingStart="12dp"
+            app:layout_constraintHorizontal_bias="0"/>
+
+        <!-- Rating -->
+        <TextView
+            android:id="@+id/tvRating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="⭐ 5.0 (120 reviews)"
+            android:textSize="14sp"
+            android:textColor="@android:color/darker_gray"
+            app:layout_constraintStart_toStartOf="@id/tvProductName"
+            app:layout_constraintTop_toBottomOf="@id/tvProductName"
+            android:paddingStart="12dp"/>
+
+        <!-- Giá tiền -->
+        <TextView
+            android:id="@+id/tvPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="$10.40"
+            android:textSize="14sp"
+            android:textColor="@android:color/holo_red_dark"
+            app:layout_constraintStart_toStartOf="@id/tvProductName"
+            app:layout_constraintTop_toBottomOf="@id/tvRating"
+            android:paddingStart="12dp"/>
+
+        <!-- Trái tim yêu thích -->
+        <ImageView
+            android:id="@+id/ivFavorite"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_margin="8dp"
+            android:src="@drawable/ic_favorite_filled"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvProductName"
+            app:layout_constraintBottom_toBottomOf="@id/tvProductName"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
