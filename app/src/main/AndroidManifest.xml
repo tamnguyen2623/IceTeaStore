@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Cấp quyền Internet -->
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -30,6 +30,14 @@
         <!-- FavoriteActivity (Danh sách yêu thích) -->
         <activity
             android:name=".views.FavoriteActivity"
+            android:exported="false"/>
+
+        <activity
+            android:name=".views.ProductManagementListActivity"
+            android:exported="false"/>
+
+        <activity
+            android:name=".views.ProductManagementActivity"
             android:exported="false"/>
     </application>
 </manifest>
