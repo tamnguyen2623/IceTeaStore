@@ -6,4 +6,6 @@
     <color name="yellow">#FFC107</color>  <!-- Màu vàng -->
     <color name="gray">#333333</color>
     <color name="blue_dark">#192A56</color>
+    <color name="teal_700">#00796B</color>
+    <color name="blue">#2196F3</color>
 </resources>
