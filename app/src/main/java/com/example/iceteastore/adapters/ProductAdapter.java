@@ -1,6 +1,9 @@
 package com.example.iceteastore.adapters;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,15 +48,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         holder.tvPrice.setText("$" + product.getPrice());
 
         // Load ảnh sản phẩm
-        String imagePath = product.getImage();
-        if (!imagePath.isEmpty()) {
-            int imageResource = context.getResources().getIdentifier(imagePath, "drawable", context.getPackageName());
-            if (imageResource != 0) {
-                holder.ivProductImage.setImageResource(imageResource);
-            } else {
-                holder.ivProductImage.setImageResource(R.drawable.placeholder_image);
-            }
-        }
+        holder.ivProductImage.setImageBitmap(convertBase64ToBitmap(product.getImage()));
 
         // Kiểm tra sản phẩm có trong danh sách yêu thích không
         FavoriteDAO favoriteDAO = new FavoriteDAO(context);
@@ -96,6 +91,16 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             tvPrice = itemView.findViewById(R.id.tvPrice);
             ivProductImage = itemView.findViewById(R.id.ivProductImage);
             ivFavorite = itemView.findViewById(R.id.ivFavorite); // Nút yêu thích
+        }
+    }
+
+    private Bitmap convertBase64ToBitmap(String base64String) {
+        try {
+            byte[] decodedBytes = Base64.decode(base64String, Base64.DEFAULT);
+            return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
     }
 }

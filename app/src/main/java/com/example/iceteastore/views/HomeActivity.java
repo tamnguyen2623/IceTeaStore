@@ -164,9 +164,6 @@ public class HomeActivity extends AppCompatActivity {
 
     /** Thêm dữ liệu mẫu vào SQLite (Chỉ chạy 1 lần) */
     private void insertSampleData() {
-        productDAO.insertProduct(new Product(1, "Milk Tea", "Delicious tea", "food1", 100, 10.40, 5.0f, 120 ));
-        productDAO.insertProduct(new Product(2, "Ice Tea", "Healthy and tasty", "food2", 80, 14.10, 4.8f, 90));
-        productDAO.insertProduct(new Product(3, "StrawberryNew", "New tea", "food3", 120, 9.99, 4.5f, 75));
     }
     @Override
     protected void onResume() {
