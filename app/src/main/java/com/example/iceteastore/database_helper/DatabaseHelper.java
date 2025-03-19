@@ -20,7 +20,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "username TEXT PRIMARY KEY, " +
                 "password TEXT, " +
                 "fullName TEXT, " +
-                "gender TEXT, " +
                 "birthday TEXT, " +
                 "phoneNumber TEXT, " +
                 "address TEXT, " +

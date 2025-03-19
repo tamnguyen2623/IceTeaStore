@@ -2,4 +2,12 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="login_title">#32324D</color>
+    <color name="login_description">#666687</color>
+    <color name="place_holder_text">#8E8EA9</color>
+    <color name="edit_text">#4A4A6A</color>
+    <color name="button">#615793</color>
+    <color name="link">#8981AE</color>
+
 </resources>
