@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/register"
+    tools:context=".views.RegisterActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <ImageButton
+                android:id="@+id/btnBack"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginStart="25dp"
+                android:background="@drawable/back_button"
+                android:padding="8dp"
+                android:src="@drawable/baseline_arrow_back_24"
+                android:contentDescription="Back"
+                android:radius="15dp"/>
+
+            <TextView
+                android:id="@+id/signup_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="30dp"
+                android:text="Getting started! ✌️"
+                android:textColor="@color/login_title"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/signup_description"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:textAlignment="center"
+                android:lineSpacingExtra="6dp"
+                android:text="Look like you are new to us! Create an account for a complete experience."
+                android:textColor="@color/login_description"/>
+
+            <EditText
+                android:id="@+id/inputUsername"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="24dp"
+                android:background="@drawable/edittext_background"
+                android:hint="Username"
+                android:inputType="text"
+                android:padding="12dp"
+                android:textColorHint="@color/place_holder_text"
+                android:textColor="@color/edit_text"
+                android:textSize="16sp"/>
+
+            <EditText
+                android:id="@+id/inputFullname"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="35dp"
+                android:layout_marginEnd="24dp"
+                android:background="@drawable/edittext_background"
+                android:hint="Full name"
+                android:inputType="text"
+                android:padding="12dp"
+                android:textColorHint="@color/place_holder_text"
+                android:textColor="@color/edit_text"
+                android:textSize="16sp"/>
+
+            <EditText
+                android:id="@+id/inputPhoneNumber"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="35dp"
+                android:layout_marginEnd="24dp"
+                android:background="@drawable/edittext_background"
+                android:hint="Phone number (0123456789)"
+                android:inputType="phone"
+                android:padding="12dp"
+                android:textColorHint="@color/place_holder_text"
+                android:textColor="@color/edit_text"
+                android:textSize="16sp"/>
+
+            <EditText
+                android:id="@+id/inputAddress"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="35dp"
+                android:layout_marginEnd="24dp"
+                android:background="@drawable/edittext_background"
+                android:hint="Address"
+                android:inputType="text"
+                android:padding="12dp"
+                android:textColorHint="@color/place_holder_text"
+                android:textColor="@color/edit_text"
+                android:textSize="16sp"/>
+
+            <EditText
+                android:id="@+id/inputDateOfBirth"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="35dp"
+                android:layout_marginEnd="24dp"
+                android:background="@drawable/edittext_background"
+                android:hint="Birthday (31/12/1990)"
+                android:inputType="date"
+                android:padding="12dp"
+                android:textColorHint="@color/place_holder_text"
+                android:textColor="@color/edit_text"
+                android:textSize="16sp"/>
+
+            <EditText
+                android:id="@+id/inputPassword"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="35dp"
+                android:layout_marginEnd="24dp"
+                android:background="@drawable/edittext_background"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:padding="12dp"
+                android:textColor="@color/edit_text"
+                android:textColorHint="@color/place_holder_text"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/submit_signup"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginTop="70dp"
+                android:layout_marginBottom="25dp"
+                android:background="@drawable/button_background"
+                android:text="Sign Up Now"/>
+
+
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

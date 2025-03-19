@@ -4,17 +4,15 @@ public class User {
     private String username;
     private String password;
     private String fullName;
-    private String gender;
     private String birthday;
     private String phoneNumber;
     private String address;
     private String role;
 
-    public User(String username, String password, String fullName, String gender, String birthday, String phoneNumber, String address, String role) {
+    public User(String username, String password, String fullName, String birthday, String phoneNumber, String address, String role) {
         this.username = username;
         this.password = password;
         this.fullName = fullName;
-        this.gender = gender;
         this.birthday = birthday;
         this.phoneNumber = phoneNumber;
         this.address = address;
@@ -43,14 +41,6 @@ public class User {
 
     public void setFullName(String fullName) {
         this.fullName = fullName;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
     }
 
     public String getBirthday() {

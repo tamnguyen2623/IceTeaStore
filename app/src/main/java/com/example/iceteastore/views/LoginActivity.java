@@ -1,26 +1,92 @@
 package com.example.iceteastore.views;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.example.iceteastore.R;
+import com.example.iceteastore.daos.UserDAO;
+import com.example.iceteastore.utils.SessionManager;
 
 public class LoginActivity extends AppCompatActivity {
+    private EditText inputUsername, inputPassword;
+    private Button btnLogin, linkSignup;
+    private UserDAO userDAO;
+    private SessionManager sessionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_login);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+
+        inputUsername = findViewById(R.id.inputUsername);
+        inputPassword = findViewById(R.id.inputPassword);
+        btnLogin = findViewById(R.id.btnLogin);
+        linkSignup = findViewById(R.id.linkSignup);
+
+        userDAO = new UserDAO(this);
+        sessionManager = new SessionManager(this);
+
+        // Kiểm tra nếu đã đăng nhập trước đó
+        if (sessionManager.getLoggedInUser() != null) {
+            navigateToHome();
+        }
+
+        btnLogin.setOnClickListener(v -> handleLogin());
+        linkSignup.setOnClickListener(v -> navigateToSignup());
+    }
+
+    private void handleLogin() {
+        String username = inputUsername.getText().toString().trim();
+        String password = inputPassword.getText().toString().trim();
+
+        if (username.isEmpty() || password.isEmpty()) {
+            Toast.makeText(this, "Please enter all required information!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Lấy role từ database khi login thành công
+        String role = userDAO.getUserRole(username, password);
+
+        if (role != null) {
+            sessionManager.saveLogin(username, role); // Lưu username và role
+
+            Toast.makeText(this, "Sign-in successfully!", Toast.LENGTH_SHORT).show();
+
+            if ("admin".equals(role)) {
+                navigateToAdmin();
+            } else {
+                navigateToHome();
+            }
+        } else {
+            if(!userDAO.isUsernameExists(username)) {
+                Toast.makeText(this, "Username does not exist!", Toast.LENGTH_SHORT).show();
+            } else if(!userDAO.isPasswordCorrect(username, password)) {
+                Toast.makeText(this, "Password is not correct!", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+
+    private void navigateToSignup() {
+        Intent intent = new Intent(this, RegisterActivity.class);
+        startActivity(intent);
+    }
+
+    private void navigateToAdmin() {
+//        Intent intent = new Intent(this, AdminActivity.class);
+//        startActivity(intent);
+//        finish();
+    }
+
+    private void navigateToHome() {
+//        Intent intent = new Intent(this, HomeActivity.class);
+//        startActivity(intent);
+//        finish();
     }
 }
