@@ -10,6 +10,7 @@ import android.provider.MediaStore;
 import android.util.Base64;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -35,6 +36,7 @@ public class ProductManagementActivity extends AppCompatActivity {
     private static ArrayList<Product> productList = new ArrayList<>();
     private ProductDAO productDAO;
     private String imageBase64 = "";
+    private ImageButton btnBack;
 
     private final ActivityResultLauncher<Intent> imagePickerLauncher =
             registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
@@ -66,7 +68,7 @@ public class ProductManagementActivity extends AppCompatActivity {
         edtPrice = findViewById(R.id.edtPrice);
         edtDescription = findViewById(R.id.edtDescription);
         Button btnSave = findViewById(R.id.btnSave);
-        Button btnViewData = findViewById(R.id.btnViewData);
+//        Button btnViewData = findViewById(R.id.btnViewData);
 
         imgProduct = findViewById(R.id.imgProduct);
         Button btnSelectImage = findViewById(R.id.btnSelectImage);
@@ -92,10 +94,15 @@ public class ProductManagementActivity extends AppCompatActivity {
             }
         });
 
-        btnViewData.setOnClickListener(v -> {
-            Intent intent = new Intent(ProductManagementActivity.this, ProductManagementListActivity.class);
-            intent.putExtra("productList", productList);
-            startActivity(intent);
+//        btnViewData.setOnClickListener(v -> {
+//            Intent intent = new Intent(ProductManagementActivity.this, ProductManagementListActivity.class);
+//            intent.putExtra("productList", productList);
+//            startActivity(intent);
+//        });
+
+        btnBack = findViewById(R.id.btnBack);
+        btnBack.setOnClickListener(v -> {
+            finish();
         });
     }
 
