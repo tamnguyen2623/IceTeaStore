@@ -1,9 +1,7 @@
 package com.example.iceteastore.views;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -45,14 +43,9 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        SharedPreferences sharedPreferences = getSharedPreferences("LoginSession", Context.MODE_PRIVATE);
-        String role = sharedPreferences.getString("role", null);
-
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
-
         // Đánh dấu Home là item được chọn
         bottomNavigationView.setSelectedItemId(R.id.home);
-
         // Xử lý chuyển trang khi bấm vào item navbar
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
