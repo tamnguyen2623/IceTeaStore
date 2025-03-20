@@ -45,6 +45,7 @@ public class ProductManagementListActivity extends AppCompatActivity {
         if ("admin".equals(role)) {
             bottomNavigationView.getMenu().findItem(R.id.home).setVisible(false);
             bottomNavigationView.getMenu().findItem(R.id.shopping_cart).setVisible(false);
+            bottomNavigationView.getMenu().findItem(R.id.bill).setVisible(false);
             bottomNavigationView.getMenu().findItem(R.id.profile).setVisible(false);
             bottomNavigationView.getMenu().findItem(R.id.product).setVisible(true);
             bottomNavigationView.getMenu().findItem(R.id.order).setVisible(true);
