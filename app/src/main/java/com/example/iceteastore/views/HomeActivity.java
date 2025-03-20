@@ -1,9 +1,14 @@
 package com.example.iceteastore.views;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.ImageView;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -15,6 +20,8 @@ import com.example.iceteastore.adapters.ProductAdapter;
 import com.example.iceteastore.daos.ProductDAO;
 import com.example.iceteastore.models.CarouselItem;
 import com.example.iceteastore.models.Product;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.tabs.TabLayout;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +44,41 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("LoginSession", Context.MODE_PRIVATE);
+        String role = sharedPreferences.getString("role", null);
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+
+        // Đánh dấu Home là item được chọn
+        bottomNavigationView.setSelectedItemId(R.id.home);
+
+        // Ẩn/hiện menu theo role
+        if ("user".equals(role)) {
+            bottomNavigationView.getMenu().findItem(R.id.home).setVisible(true);
+            bottomNavigationView.getMenu().findItem(R.id.shopping_cart).setVisible(true);
+            bottomNavigationView.getMenu().findItem(R.id.profile).setVisible(true);
+            bottomNavigationView.getMenu().findItem(R.id.product).setVisible(false);
+            bottomNavigationView.getMenu().findItem(R.id.order).setVisible(false);
+        }
+
+        // Xử lý chuyển trang khi bấm vào item navbar
+        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int itemId = item.getItemId();
+                if (itemId == R.id.shopping_cart) {
+//                    startActivity(new Intent(HomeActivity.this, ProductManagementListActivity.class));
+//                    overridePendingTransition(0, 0);
+                    return true;
+                } else if (itemId == R.id.profile) {
+//                    startActivity(new Intent(HomeActivity.this, ProductManagementActivity.class));
+//                    overridePendingTransition(0, 0);
+                    return true;
+                }
+                return false;
+            }
+        });
 
         // Ánh xạ UI
         searchView = findViewById(R.id.searchView);
