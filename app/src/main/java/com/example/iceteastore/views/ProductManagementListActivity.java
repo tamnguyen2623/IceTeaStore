@@ -1,8 +1,6 @@
 package com.example.iceteastore.views;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -22,7 +20,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ProductManagementListActivity extends AppCompatActivity {
     private ArrayList<Product> productList;
@@ -37,13 +34,9 @@ public class ProductManagementListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_product_list);
 
         sessionManager = new SessionManager(this);
-        SharedPreferences sharedPreferences = getSharedPreferences("LoginSession", Context.MODE_PRIVATE);
-        String role = sharedPreferences.getString("role", null);
-
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
-
+        // Đánh dấu Drink là item được chọn
         bottomNavigationView.setSelectedItemId(R.id.product);
-
         // Xử lý chuyển trang khi bấm vào item navbar
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
