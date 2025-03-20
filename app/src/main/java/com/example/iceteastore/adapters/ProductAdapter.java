@@ -1,6 +1,7 @@
 package com.example.iceteastore.adapters;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -57,7 +58,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
         // Kiểm tra sản phẩm có trong danh sách yêu thích không
         FavoriteDAO favoriteDAO = new FavoriteDAO(context);
-        String username = "current_user"; // Thay bằng username thực tế của người dùng
+        SharedPreferences sharedPreferences = context.getSharedPreferences("LoginSession", Context.MODE_PRIVATE);
+        String username = sharedPreferences.getString("username", null);
         boolean isFavorite = favoriteDAO.isFavorite(username, product.getId());
 
         // Cập nhật UI của icon trái tim
