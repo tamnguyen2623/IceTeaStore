@@ -2,7 +2,6 @@ package com.example.iceteastore.views;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -33,8 +32,15 @@ public class LoginActivity extends AppCompatActivity {
         sessionManager = new SessionManager(this);
 
         // Kiểm tra nếu đã đăng nhập trước đó
-        if (sessionManager.getLoggedInUser() != null) {
-            navigateToHome();
+        String username = sessionManager.getLoggedInUser();
+        String role = sessionManager.getUserRole();
+
+        if (username != null && role != null) {
+            if ("admin".equals(role)) {
+                navigateToAdmin();
+            } else {
+                navigateToHome();
+            }
         }
 
         btnLogin.setOnClickListener(v -> handleLogin());
@@ -79,14 +85,14 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void navigateToAdmin() {
-//        Intent intent = new Intent(this, AdminActivity.class);
-//        startActivity(intent);
-//        finish();
+        Intent intent = new Intent(this, ProductManagementListActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     private void navigateToHome() {
-//        Intent intent = new Intent(this, HomeActivity.class);
-//        startActivity(intent);
-//        finish();
+        Intent intent = new Intent(this, HomeActivity.class);
+        startActivity(intent);
+        finish();
     }
 }
