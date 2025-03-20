@@ -53,24 +53,14 @@ public class HomeActivity extends AppCompatActivity {
         // Đánh dấu Home là item được chọn
         bottomNavigationView.setSelectedItemId(R.id.home);
 
-        // Ẩn/hiện menu theo role
-        if ("user".equals(role)) {
-            bottomNavigationView.getMenu().findItem(R.id.home).setVisible(true);
-            bottomNavigationView.getMenu().findItem(R.id.shopping_cart).setVisible(true);
-            bottomNavigationView.getMenu().findItem(R.id.bill).setVisible(true);
-            bottomNavigationView.getMenu().findItem(R.id.profile).setVisible(true);
-            bottomNavigationView.getMenu().findItem(R.id.product).setVisible(false);
-            bottomNavigationView.getMenu().findItem(R.id.order).setVisible(false);
-        }
-
         // Xử lý chuyển trang khi bấm vào item navbar
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int itemId = item.getItemId();
                 if (itemId == R.id.shopping_cart) {
-                    startActivity(new Intent(HomeActivity.this, ProductManagementListActivity.class));
-                    overridePendingTransition(0, 0);
+//                    startActivity(new Intent(HomeActivity.this, ProductManagementListActivity.class));
+//                    overridePendingTransition(0, 0);
                     return true;
                 } else if (itemId == R.id.bill) {
 //                    startActivity(new Intent(HomeActivity.this, ProductManagementActivity.class));
