@@ -78,7 +78,7 @@ public class RegisterActivity extends AppCompatActivity {
             Toast.makeText(this, "Phone number already exists!", Toast.LENGTH_SHORT).show();
         } else {
             // Lưu vào SQLite
-            User newUser = new User(username, password, fullName, birthday, phoneNumber, address, "user");
+            User newUser = new User(username, password, fullName, birthday, phoneNumber, address, "admin");
             boolean isInserted = userDAO.insertUser(newUser);
 
             if (isInserted) {
@@ -114,7 +114,7 @@ public class RegisterActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("LoginSession", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("username", username);
-        editor.putString("role", "user");
+        editor.putString("role", "admin");
         editor.apply();
     }
 }

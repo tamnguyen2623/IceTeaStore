@@ -25,6 +25,10 @@ public class SessionManager {
         return sharedPreferences.getString(KEY_USERNAME, null);
     }
 
+    public String getUserRole() {
+        return sharedPreferences.getString(KEY_ROLE, null);
+    }
+
     public void logout() {
         editor.clear();
         editor.apply();
