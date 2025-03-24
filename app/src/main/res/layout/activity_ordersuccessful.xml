@@ -1,0 +1,78 @@
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <ImageView
+        android:id="@+id/imgSuccess"
+        android:layout_width="397dp"
+        android:layout_height="388dp"
+        android:layout_marginTop="24dp"
+        android:contentDescription="Success Icon"
+        android:src="@drawable/ic_success"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvSuccessMessage"
+        android:layout_width="266dp"
+        android:layout_height="49dp"
+
+        android:layout_marginTop="12dp"
+
+        android:text="You've made order"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.586"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imgSuccess" />
+
+    <TextView
+        android:id="@+id/tvMessage"
+        android:layout_width="330dp"
+        android:layout_height="55dp"
+
+        android:layout_marginTop="68dp"
+        android:hint="We will try to deliver to you as soon as possible."
+        android:textAlignment="center"
+
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imgSuccess" />
+
+    <Button
+        android:id="@+id/btnViewOrder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+       android:onClick="vieworder"
+        android:layout_marginBottom="128dp"
+        android:background="@drawable/button_background"
+        android:text="View Order"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btnBackToHome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="56dp"
+        android:background="@drawable/button_background"
+        android:text="Back to home"
+        android:onClick="backhome"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
