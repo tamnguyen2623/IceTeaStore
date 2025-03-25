@@ -2,9 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="#FFFFFF"
     android:orientation="horizontal"
-    android:padding="8dp"
-    android:background="#FFFFFF">
+    android:padding="8dp">
 
     <!-- Ảnh sản phẩm -->
     <ImageView
@@ -12,7 +12,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:scaleType="centerCrop"
-        android:src="@mipmap/ic_launcher"/>
+        android:src="@mipmap/ic_launcher" />
 
     <!-- Thông tin sản phẩm -->
     <LinearLayout
@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:text="Tên sản phẩm"
             android:textSize="16sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tvRating"
@@ -36,47 +36,46 @@
             android:layout_height="wrap_content"
             android:text="⭐ 4.5"
             android:textColor="#FFC107"
-            android:textSize="14sp"/>
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/tvPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="200,000 VND"
-            android:textSize="16sp"
-            android:textColor="#FF0000"/>
+            android:textColor="#FF0000"
+            android:textSize="16sp" />
     </LinearLayout>
 
     <!-- Nút tăng giảm số lượng -->
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="vertical">
 
         <Button
             android:id="@+id/btnDecrease"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:background="@drawable/baseline_minus_24"
             android:backgroundTint="@color/skin"
-            android:textColor="@color/orange"
-            />
+            android:textColor="@color/orange" />
 
         <TextView
             android:id="@+id/tvQuantity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:text="1"
-            android:textSize="16sp"
-            android:gravity="center"/>
+            android:textSize="16sp" />
 
         <Button
             android:id="@+id/btnIncrease"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:textColor="@color/orange"
-            android:backgroundTint="@color/skin"
-            />
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:background="@drawable/baseline_add_24"
+            android:textColor="@color/orange" />
 
 
     </LinearLayout>
