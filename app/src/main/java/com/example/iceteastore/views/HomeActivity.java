@@ -72,8 +72,8 @@ public class HomeActivity extends AppCompatActivity {
                     overridePendingTransition(0, 0);
                     return true;
                 } else if (itemId == R.id.profile) {
-//                    startActivity(new Intent(HomeActivity.this, ProductManagementActivity.class));
-//                    overridePendingTransition(0, 0);
+                    startActivity(new Intent(HomeActivity.this, ProfileActivity.class));
+                    overridePendingTransition(0, 0);
                     return true;
                 }
                 return false;

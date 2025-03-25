@@ -1,7 +1,7 @@
 package com.example.iceteastore.views;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -18,7 +18,6 @@ import com.example.iceteastore.adapters.ShoppingCartAdapter;
 import com.example.iceteastore.daos.ShoppingCartDAO;
 import com.example.iceteastore.models.ShoppingCart;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ShoppingCartActivity extends AppCompatActivity {
@@ -58,14 +57,11 @@ public class ShoppingCartActivity extends AppCompatActivity {
 
     // Lấy dữ liệu giỏ hàng từ SQLite
     private void loadCartData() {
-        cartItems = new ArrayList<>();
-        cartItems.add(new ShoppingCart("Trà Sữa Truyền Thống", R.drawable.food3, 2, 4.5, 4.8f));
-        cartItems.add(new ShoppingCart("Trà Sữa Matcha", R.drawable.food3, 1, 5.0, 4.7f));
-        cartItems.add(new ShoppingCart("Trà Đào Cam Sả", R.drawable.food3, 3, 3.8, 4.6f));
+        cartItems = cartDAO.getCartItems(username);
+        Log.d("ShoppingCartActivity", "Cart items: " + cartItems.size());
 
         updateEmptyCartView();
     }
-
 
     // Cập nhật tổng giá trị đơn hàng
     private void calculateTotalPrice() {
@@ -100,6 +96,4 @@ public class ShoppingCartActivity extends AppCompatActivity {
             Toast.makeText(this, "Đơn hàng đã gửi thành công!", Toast.LENGTH_SHORT).show();
         }
     }
-
-
 }

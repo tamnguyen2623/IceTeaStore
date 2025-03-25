@@ -75,7 +75,7 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
         });
 
         // Xử lý xóa sản phẩm khỏi giỏ hàng
-        holder.btnRemove.setOnClickListener(v -> removeItem(position));
+//        holder.btnRemove.setOnClickListener(v -> removeItem(position));
     }
 
     @Override
@@ -95,7 +95,7 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
     public static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView imgProduct;
         TextView txtName, txtPrice, txtRating, txtQuantity;
-        Button btnIncrease, btnDecrease, btnRemove;
+        Button btnIncrease, btnDecrease;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -106,7 +106,7 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
             btnDecrease = itemView.findViewById(R.id.btnDecrease);
             txtQuantity = itemView.findViewById(R.id.tvQuantity);
             btnIncrease = itemView.findViewById(R.id.btnIncrease);
-//            btnRemove = itemView.findViewById(R.id.btnRemove); // Thêm nút xóa sản phẩm
+//            btnRemove = itemView.findViewById(R.id.); // Thêm nút xóa sản phẩm
         }
     }
 }

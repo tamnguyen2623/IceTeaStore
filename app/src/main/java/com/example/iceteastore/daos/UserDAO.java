@@ -69,5 +69,36 @@ public class UserDAO {
         cursor.close();
         return isCorrect;
     }
+    // Lấy thông tin người dùng dựa vào username
+    public User getUserByUsername(String username) {
+        String query = "SELECT * FROM users WHERE username = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{username});
+
+        if (cursor.moveToFirst()) {
+            User user = new User(
+                    cursor.getString(cursor.getColumnIndexOrThrow("username")),
+                    cursor.getString(cursor.getColumnIndexOrThrow("password")),
+                    cursor.getString(cursor.getColumnIndexOrThrow("fullName")),
+                    cursor.getString(cursor.getColumnIndexOrThrow("birthday")),
+                    cursor.getString(cursor.getColumnIndexOrThrow("phoneNumber")),
+                    cursor.getString(cursor.getColumnIndexOrThrow("address")),
+                    cursor.getString(cursor.getColumnIndexOrThrow("role"))
+            );
+            cursor.close();
+            return user;
+        }
+        cursor.close();
+        return null;
+    }
+    public boolean updateUserProfile(String username, String fullName, String birthday, String phone, String address) {
+        ContentValues values = new ContentValues();
+        values.put("fullName", fullName);
+        values.put("birthday", birthday);
+        values.put("phoneNumber", phone);
+        values.put("address", address);
+
+        int result = db.update("users", values, "username = ?", new String[]{username});
+        return result > 0; // Trả về true nếu cập nhật thành công
+    }
 
 }
