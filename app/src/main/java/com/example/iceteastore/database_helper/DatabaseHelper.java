@@ -56,6 +56,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE shopping_cart (" +
                 "username TEXT, " +
                 "productId INTEGER, " +
+                "imageResource INTEGER, " +
                 "quantity INTEGER, " +
                 "price REAL, " +
                 "PRIMARY KEY(username, productId), " +

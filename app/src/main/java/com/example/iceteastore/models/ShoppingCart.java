@@ -1,47 +1,41 @@
 package com.example.iceteastore.models;
 
 public class ShoppingCart {
-    private String username;
-    private int productId;
+    private String name;
+    private int imageResource;
     private int quantity;
     private double price;
+    private float rating;
 
-    public ShoppingCart(String username, int productId, int quantity, double price) {
-        this.username = username;
-        this.productId = productId;
+    public ShoppingCart(String name, int imageResource, int quantity, double price, float rating) {
+        this.name = name;
+        this.imageResource = imageResource;
         this.quantity = quantity;
         this.price = price;
+        this.rating = rating;
     }
 
-    public String getUsername() {
-        return username;
+    public String getName() {
+        return name;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public int getProductId() {
-        return productId;
-    }
-
-    public void setProductId(int productId) {
-        this.productId = productId;
+    public int getImageResource() {
+        return imageResource;
     }
 
     public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
     public double getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
+    public float getRating() {
+        return rating;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 }
