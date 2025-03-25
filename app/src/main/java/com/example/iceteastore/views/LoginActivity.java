@@ -90,14 +90,6 @@ public class LoginActivity extends AppCompatActivity {
         finish();
     }
 
-    // chuyen sang trang bill admin
-//    private void navigateToAdmin() {
-//        Intent intent = new Intent(this, AdminBillActivity.class);
-//        startActivity(intent);
-//        finish();
-//    }
-
-
     private void navigateToHome() {
         Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
