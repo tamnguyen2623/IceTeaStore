@@ -40,6 +40,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "date TEXT, " +
                 "total REAL, " +
                 "username TEXT, " +
+                "status TEXT, " +
                 "FOREIGN KEY(username) REFERENCES users(username))");
 
         // Tạo bảng Order
