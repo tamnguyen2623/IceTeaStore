@@ -2,6 +2,7 @@ package com.example.iceteastore.views;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -9,7 +10,10 @@ import com.example.iceteastore.R;
 import com.example.iceteastore.daos.UserDAO;
 import com.example.iceteastore.models.User;
 import com.example.iceteastore.utils.SessionManager;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class ProfileActivity extends AppCompatActivity {
@@ -22,6 +26,31 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        // Đánh dấu Home là item được chọn
+        bottomNavigationView.setSelectedItemId(R.id.profile);
+        // Xử lý chuyển trang khi bấm vào item navbar
+        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int itemId = item.getItemId();
+                if (itemId == R.id.shopping_cart) {
+                    startActivity(new Intent(ProfileActivity.this, ShoppingCartActivity.class));
+                    overridePendingTransition(0, 0);
+                    return true;
+                } else if (itemId == R.id.bill) {
+                    startActivity(new Intent(ProfileActivity.this, OrderActivity.class));
+                    overridePendingTransition(0, 0);
+                    return true;
+                } else if (itemId == R.id.home) {
+                    startActivity(new Intent(ProfileActivity.this, HomeActivity.class));
+                    overridePendingTransition(0, 0);
+                    return true;
+                }
+                return false;
+            }
+        });
 
         // Ánh xạ view
         btnEditProfile = findViewById(R.id.btnEditProfile);

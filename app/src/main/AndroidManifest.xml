@@ -23,9 +23,6 @@
             android:name=".views.ShoppingCartActivity"
             android:exported="false" />
         <activity
-            android:name=".views.DetailActivity"
-            android:exported="false" />
-        <activity
             android:name=".views.ProfileActivity"
             android:exported="false" />
         <activity
