@@ -26,6 +26,7 @@ import com.example.iceteastore.models.Product;
 import com.example.iceteastore.views.EditProductAdminActivity;
 import com.example.iceteastore.views.ProductManagementListActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProductManagementAdapter extends RecyclerView.Adapter<ProductManagementAdapter.ViewHolder> {
@@ -130,6 +131,12 @@ public class ProductManagementAdapter extends RecyclerView.Adapter<ProductManage
             btn_delete = itemView.findViewById(R.id.btn_delete);
         }
     }
+
+    public void filterList(List<Product> filteredList) {
+        this.productList = new ArrayList<>(filteredList);
+        notifyDataSetChanged();
+    }
+
 
     private Bitmap convertBase64ToBitmap(String base64String) {
         try {
