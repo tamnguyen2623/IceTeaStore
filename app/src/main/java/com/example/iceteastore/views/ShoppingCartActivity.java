@@ -124,6 +124,10 @@ public class ShoppingCartActivity extends AppCompatActivity {
             adapter.notifyDataSetChanged();
             calculateTotalPrice();
             Toast.makeText(this, "Đơn hàng đã gửi thành công!", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, OrderActivity.class);
+            startActivity(intent);
+            finish();
         }
+
     }
 }

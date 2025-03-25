@@ -1,6 +1,5 @@
 package com.example.iceteastore.daos;
 
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -14,8 +13,10 @@ import java.util.List;
 
 public class ShoppingCartDAO {
     private DatabaseHelper dbHelper;
+    private Context context;  // ✅ Thêm biến context
 
     public ShoppingCartDAO(Context context) {
+        this.context = context;  // ✅ Gán context
         dbHelper = new DatabaseHelper(context);
     }
 
@@ -25,7 +26,7 @@ public class ShoppingCartDAO {
         ContentValues values = new ContentValues();
         values.put("username", username);
         values.put("productId", item.getName().hashCode());
-        values.put("imageResource", item.getImageResource());
+        values.put("imageResource", item.getImageResource());  // Nếu là URL thì không cần chuyển đổi
         values.put("quantity", item.getQuantity());
         values.put("price", item.getPrice());
 
@@ -42,17 +43,18 @@ public class ShoppingCartDAO {
         if (cursor.moveToFirst()) {
             do {
                 String name = "Product " + cursor.getInt(1);
-                int imageResource = cursor.getInt(2);
+                String imageResourceStr = cursor.getString(2); // ✅ Lấy trực tiếp String từ database
                 int quantity = cursor.getInt(3);
                 double price = cursor.getDouble(4);
 
-                cartList.add(new ShoppingCart(name, imageResource, quantity, price, 4.5f));
+                cartList.add(new ShoppingCart(name, price, imageResourceStr, quantity));
             } while (cursor.moveToNext());
         }
         cursor.close();
         db.close();
         return cartList;
     }
+
 
     // Cập nhật số lượng sản phẩm
     public void updateQuantity(String username, int productId, int quantity) {
@@ -67,7 +69,6 @@ public class ShoppingCartDAO {
         db.close();
     }
 
-
     // Xóa sản phẩm khỏi giỏ hàng
     public void removeItem(String username, int productId) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
@@ -81,6 +82,4 @@ public class ShoppingCartDAO {
         db.delete("shopping_cart", "username=?", new String[]{username});
         db.close();
     }
-
 }
-
