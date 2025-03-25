@@ -1,13 +1,14 @@
 package com.example.iceteastore.adapters;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,12 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.iceteastore.R;
 import com.example.iceteastore.daos.FavoriteDAO;
-import com.example.iceteastore.daos.ShoppingCartDAO;
 import com.example.iceteastore.models.Product;
-import com.example.iceteastore.models.ShoppingCart;
-import com.example.iceteastore.views.DetailActivity;
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,21 +47,20 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         holder.tvProductName.setText(product.getName());
         holder.tvRating.setText("⭐ " + product.getRating() + " (" + product.getReviews() + " reviews)");
         holder.tvPrice.setText("$" + product.getPrice());
+        holder.ivProductImage.setImageBitmap(convertBase64ToBitmap(product.getImage()));
 
-        // Load ảnh sản phẩm
         String imagePath = product.getImage();
-        int imageResource = context.getResources().getIdentifier(imagePath, "drawable", context.getPackageName());
         if (!imagePath.isEmpty()) {
-            if (imageResource != 0) {
-                holder.ivProductImage.setImageResource(imageResource);
-            } else {
-                holder.ivProductImage.setImageResource(R.drawable.placeholder_image);
-            }
+            holder.ivProductImage.setImageBitmap(convertBase64ToBitmap(product.getImage()));
+        } else {
+            holder.ivProductImage.setImageResource(R.drawable.placeholder_image);
         }
+
 
         // Kiểm tra sản phẩm có trong danh sách yêu thích không
         FavoriteDAO favoriteDAO = new FavoriteDAO(context);
-        String username = "user123"; // Thay bằng username thực tế của người dùng
+        SharedPreferences sharedPreferences = context.getSharedPreferences("LoginSession", Context.MODE_PRIVATE);
+        String username = sharedPreferences.getString("username", null);
         boolean isFavorite = favoriteDAO.isFavorite(username, product.getId());
 
         // Cập nhật UI của icon trái tim
@@ -81,47 +76,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
                 holder.ivFavorite.setImageResource(R.drawable.ic_favorite_filled);
             }
         });
-        // Xử lý khi bấm vào tên sản phẩm
-        holder.tvProductName.setOnClickListener(v -> {
-            View dialogView = LayoutInflater.from(context).inflate(R.layout.activity_product_detail, null);
-            BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(context);
-            bottomSheetDialog.setContentView(dialogView);
-
-            BottomSheetBehavior<View> bottomSheetBehavior = BottomSheetBehavior.from((View) dialogView.getParent());
-            bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-            bottomSheetBehavior.setPeekHeight(BottomSheetBehavior.PEEK_HEIGHT_AUTO);
-
-            ImageView ivDialogProductImage = dialogView.findViewById(R.id.ivProductImage);
-            TextView tvDialogProductName = dialogView.findViewById(R.id.tvProductName);
-            TextView tvDialogRating = dialogView.findViewById(R.id.tvRating);
-            TextView tvDialogPrice = dialogView.findViewById(R.id.tvPrice);
-
-            tvDialogProductName.setText(product.getName());
-            tvDialogRating.setText("⭐ " + product.getRating() + " (" + product.getReviews() + " reviews)");
-            tvDialogPrice.setText("$" + product.getPrice());
-
-            // Load ảnh sản phẩm
-            if (imageResource != 0) {
-                ivDialogProductImage.setImageResource(imageResource);
-            } else {
-                ivDialogProductImage.setImageResource(R.drawable.placeholder_image);
-            }
-            Button btnAddToOrder = dialogView.findViewById(R.id.btn_order);
-            // Xử lý khi bấm nút "Add to order"
-            btnAddToOrder.setOnClickListener(v1 -> {
-                ShoppingCartDAO shoppingCartDAO = new ShoppingCartDAO(context);
-                ShoppingCart item = new ShoppingCart(product.getName(), imageResource, 1, product.getPrice(), product.getRating());
-
-                shoppingCartDAO.addToCart(username, item);
-                Toast.makeText(context, "Đã thêm " + product.getName() + " vào giỏ hàng!", Toast.LENGTH_SHORT).show();
-                bottomSheetDialog.dismiss();
-                Log.d("ShoppingCartDAO", "Added item: " + item.getName());
-            });
-
-            bottomSheetDialog.show();
-        });
-
-
     }
 
     @Override
@@ -137,7 +91,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     public static class ProductViewHolder extends RecyclerView.ViewHolder {
         TextView tvProductName, tvRating, tvPrice;
         ImageView ivProductImage, ivFavorite;
-        Button btnOrder;
 
         public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -146,7 +99,16 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             tvPrice = itemView.findViewById(R.id.tvPrice);
             ivProductImage = itemView.findViewById(R.id.ivProductImage);
             ivFavorite = itemView.findViewById(R.id.ivFavorite); // Nút yêu thích
-            btnOrder = itemView.findViewById(R.id.btn_order);
+        }
+    }
+
+    private Bitmap convertBase64ToBitmap(String base64String) {
+        try {
+            byte[] decodedBytes = Base64.decode(base64String, Base64.DEFAULT);
+            return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
     }
 }

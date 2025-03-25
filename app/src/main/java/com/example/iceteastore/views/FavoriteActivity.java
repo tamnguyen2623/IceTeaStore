@@ -1,5 +1,7 @@
 package com.example.iceteastore.views;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
@@ -20,7 +22,7 @@ public class FavoriteActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private FavoriteAdapter favoriteAdapter;
     private FavoriteDAO favoriteDAO;
-    private String username = "current_user"; // Thay bằng username thực tế
+
     private ImageButton btnBack;
     private TextView tvEmptyMessage;
 
@@ -28,7 +30,8 @@ public class FavoriteActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorite);
-
+        SharedPreferences sharedPreferences = getSharedPreferences("LoginSession", Context.MODE_PRIVATE);
+        String username= sharedPreferences.getString("username", null);
         recyclerView = findViewById(R.id.recyclerViewFavorites);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 

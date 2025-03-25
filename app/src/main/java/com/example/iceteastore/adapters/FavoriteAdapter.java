@@ -1,6 +1,7 @@
 package com.example.iceteastore.adapters;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -63,19 +64,26 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
 
         // Xử lý xóa khỏi danh sách yêu thích
         holder.ivFavorite.setOnClickListener(v -> {
-            // Xóa sản phẩm khỏi database trước khi cập nhật UI
-            FavoriteDAO favoriteDAO = new FavoriteDAO(context);
-            boolean isDeleted = favoriteDAO.removeFromFavorites("current_user", product.getId());
-            if (isDeleted) {
-                favoriteList.remove(position);
-                notifyItemRemoved(position);
-                notifyItemRangeChanged(position, favoriteList.size());
-                Toast.makeText(context, "Removed from favorites list successfully", Toast.LENGTH_SHORT).show();
+            SharedPreferences sharedPreferences = context.getSharedPreferences("LoginSession", Context.MODE_PRIVATE);
+            String username = sharedPreferences.getString("username", null);
+
+            if (username != null) {
+                // Xóa sản phẩm khỏi database trước khi cập nhật UI
+                FavoriteDAO favoriteDAO = new FavoriteDAO(context);
+                boolean isDeleted = favoriteDAO.removeFromFavorites(username, product.getId()); // Sửa lỗi truyền username
+
+                if (isDeleted) {
+                    favoriteList.remove(position);
+                    notifyItemRemoved(position);
+                    notifyItemRangeChanged(position, favoriteList.size());
+                    Toast.makeText(context, "Removed from favorites list successfully", Toast.LENGTH_SHORT).show();
+                } else {
+                    Log.e("FavoriteAdapter", "Error when removing product ID: " + product.getId());
+                }
             } else {
-                Log.e("FavoriteAdapter", "Error when removed: " + product.getId());
+                Toast.makeText(context, "User not logged in!", Toast.LENGTH_SHORT).show();
             }
         });
-
     }
 
     @Override

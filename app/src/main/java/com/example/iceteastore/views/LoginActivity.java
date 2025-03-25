@@ -35,13 +35,13 @@ public class LoginActivity extends AppCompatActivity {
         String username = sessionManager.getLoggedInUser();
         String role = sessionManager.getUserRole();
 
-        if (username != null && role != null) {
-            if ("admin".equals(role)) {
-                navigateToAdmin();
-            } else {
-                navigateToHome();
-            }
-        }
+//        if (username != null && role != null) {
+//            if ("admin".equals(role)) {
+//                navigateToAdmin();
+//            } else {
+//                navigateToHome();
+//            }
+//        }
 
         btnLogin.setOnClickListener(v -> handleLogin());
         linkSignup.setOnClickListener(v -> navigateToSignup());
@@ -89,6 +89,14 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
+    // chuyen sang trang bill admin
+//    private void navigateToAdmin() {
+//        Intent intent = new Intent(this, AdminBillActivity.class);
+//        startActivity(intent);
+//        finish();
+//    }
+
 
     private void navigateToHome() {
         Intent intent = new Intent(this, HomeActivity.class);

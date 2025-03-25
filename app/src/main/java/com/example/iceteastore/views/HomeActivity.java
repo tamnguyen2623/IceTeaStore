@@ -1,9 +1,7 @@
 package com.example.iceteastore.views;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -45,23 +43,9 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        SharedPreferences sharedPreferences = getSharedPreferences("LoginSession", Context.MODE_PRIVATE);
-        String role = sharedPreferences.getString("role", null);
-
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
-
         // Đánh dấu Home là item được chọn
         bottomNavigationView.setSelectedItemId(R.id.home);
-
-        // Ẩn/hiện menu theo role
-        if ("user".equals(role)) {
-            bottomNavigationView.getMenu().findItem(R.id.home).setVisible(true);
-            bottomNavigationView.getMenu().findItem(R.id.shopping_cart).setVisible(true);
-            bottomNavigationView.getMenu().findItem(R.id.profile).setVisible(true);
-            bottomNavigationView.getMenu().findItem(R.id.product).setVisible(false);
-            bottomNavigationView.getMenu().findItem(R.id.order).setVisible(false);
-        }
-
         // Xử lý chuyển trang khi bấm vào item navbar
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
@@ -70,6 +54,10 @@ public class HomeActivity extends AppCompatActivity {
                 if (itemId == R.id.shopping_cart) {
                     startActivity(new Intent(HomeActivity.this, ShoppingCartActivity.class));
                     overridePendingTransition(0, 0);
+                    return true;
+                } else if (itemId == R.id.bill) {
+//                    startActivity(new Intent(HomeActivity.this, ProductManagementActivity.class));
+//                    overridePendingTransition(0, 0);
                     return true;
                 } else if (itemId == R.id.profile) {
                     startActivity(new Intent(HomeActivity.this, ProfileActivity.class));
@@ -206,9 +194,6 @@ public class HomeActivity extends AppCompatActivity {
 
     /** Thêm dữ liệu mẫu vào SQLite (Chỉ chạy 1 lần) */
     private void insertSampleData() {
-        productDAO.insertProduct(new Product(1, "Milk Tea", "Delicious tea", "food1", 100, 10.40, 5.0f, 120 ));
-        productDAO.insertProduct(new Product(2, "Ice Tea", "Healthy and tasty", "food2", 80, 14.10, 4.8f, 90));
-        productDAO.insertProduct(new Product(3, "StrawberryNew", "New tea", "food3", 120, 9.99, 4.5f, 75));
     }
     @Override
     protected void onResume() {
