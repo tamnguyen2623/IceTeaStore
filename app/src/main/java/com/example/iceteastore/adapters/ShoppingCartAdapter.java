@@ -1,6 +1,9 @@
 package com.example.iceteastore.adapters;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,13 +50,16 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         ShoppingCart item = cartItems.get(position);
-
-        holder.imgProduct.setImageResource(item.getImageResource());
         holder.txtName.setText(item.getName());
         holder.txtPrice.setText(String.format("$%.2f", item.getPrice()));
-        holder.txtRating.setText(String.format("%.1f⭐", item.getRating()));
         holder.txtQuantity.setText(String.valueOf(item.getQuantity()));
 
+        String imagePath = item.getImageResource();
+        if (!imagePath.isEmpty()) {
+            holder.imgProduct.setImageBitmap(convertBase64ToBitmap(item.getImageResource()));
+        } else {
+            holder.imgProduct.setImageResource(R.drawable.placeholder_image);
+        }
         // Xử lý tăng số lượng
         holder.btnIncrease.setOnClickListener(v -> {
             item.setQuantity(item.getQuantity() + 1);
@@ -107,6 +113,15 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
             txtQuantity = itemView.findViewById(R.id.tvQuantity);
             btnIncrease = itemView.findViewById(R.id.btnIncrease);
 //            btnRemove = itemView.findViewById(R.id.); // Thêm nút xóa sản phẩm
+        }
+    }
+    private Bitmap convertBase64ToBitmap(String base64String) {
+        try {
+            byte[] decodedBytes = Base64.decode(base64String, Base64.DEFAULT);
+            return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
     }
 }

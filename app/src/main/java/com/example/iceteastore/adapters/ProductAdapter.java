@@ -3,6 +3,10 @@ package com.example.iceteastore.adapters;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -60,22 +64,19 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         }
 
         holder.tvProductName.setText(product.getName());
-        holder.tvRating.setText("⭐ " + product.getRating() + " (" + product.getReviews() + " reviews)");
-        holder.tvPrice.setText("$" + product.getPrice());
+    holder.tvPrice.setText("$" + product.getPrice());
 
-        // Load ảnh sản phẩm
-        String imagePath = product.getImage();
-        int imageResource = context.getResources().getIdentifier(imagePath, "drawable", context.getPackageName());
-        if (!imagePath.isEmpty()) {
-            if (imageResource != 0) {
-                holder.ivProductImage.setImageResource(imageResource);
-            } else {
-                holder.ivProductImage.setImageResource(R.drawable.placeholder_image);
-            }
+        String imageResource = product.getImage();
+        if (imageResource != null && !imageResource.isEmpty()) {
+            Glide.with(context).load(imageResource).into(holder.ivProductImage);
+        } else {
+            holder.ivProductImage.setImageResource(R.drawable.placeholder_image);
         }
+
 
         // Kiểm tra sản phẩm có trong danh sách yêu thích không
         FavoriteDAO favoriteDAO = new FavoriteDAO(context);
+        SharedPreferences sharedPreferences = context.getSharedPreferences("LoginSession", Context.MODE_PRIVATE);
         boolean isFavorite = favoriteDAO.isFavorite(username, product.getId());
 
         // Cập nhật UI của icon trái tim
@@ -111,19 +112,14 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             tvDialogRating.setText("⭐ " + product.getRating() + " (" + product.getReviews() + " reviews)");
             tvDialogPrice.setText("$" + product.getPrice());
 
-            // Load ảnh sản phẩm
-            if (imageResource != 0) {
-                ivDialogProductImage.setImageResource(imageResource);
-            } else {
-                ivDialogProductImage.setImageResource(R.drawable.placeholder_image);
-            }
+
 
             Button btnAddToOrder = dialogView.findViewById(R.id.btn_order);
 
             // Xử lý khi bấm nút "Add to order"
             btnAddToOrder.setOnClickListener(v1 -> {
                 ShoppingCartDAO shoppingCartDAO = new ShoppingCartDAO(context);
-                ShoppingCart item = new ShoppingCart(product.getName(), imageResource, 1, product.getPrice(), product.getRating());
+                ShoppingCart item = new ShoppingCart(product.getName(), product.getImage(), 1, product.getPrice());
 
                 shoppingCartDAO.addToCart(username, item);
                 Toast.makeText(context, "Đã thêm " + product.getName() + " vào giỏ hàng!", Toast.LENGTH_SHORT).show();
@@ -158,6 +154,16 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             ivProductImage = itemView.findViewById(R.id.ivProductImage);
             ivFavorite = itemView.findViewById(R.id.ivFavorite); // Nút yêu thích
             btnOrder = itemView.findViewById(R.id.btn_order);
+        }
+    }
+
+    private Bitmap convertBase64ToBitmap(String base64String) {
+        try {
+            byte[] decodedBytes = Base64.decode(base64String, Base64.DEFAULT);
+            return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
     }
 }

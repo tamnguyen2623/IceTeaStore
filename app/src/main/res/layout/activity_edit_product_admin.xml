@@ -1,0 +1,151 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_marginHorizontal="20dp"
+android:layout_marginBottom="5dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/btnBack"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/back_button"
+                android:contentDescription="Back"
+                android:padding="8dp"
+                android:radius="15dp"
+                android:src="@drawable/baseline_arrow_back_24" />
+        </LinearLayout>
+
+        <!-- CardView chứa ảnh sản phẩm -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:fontFamily="sans-serif-medium"
+                android:textColor="@color/text"
+                android:text="Edit Product"
+                android:textSize="26sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/imgProduct"
+                android:layout_width="250dp"
+                android:layout_height="250dp"
+                android:layout_marginBottom="12dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/bg_image_placeholder" />
+
+            <Button
+                android:id="@+id/btnSelectImage"
+                android:layout_width="161dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/border"
+                android:fontFamily="sans-serif-medium"
+                android:padding="12dp"
+
+                android:text="Select Image"
+                android:textColor="@color/sub_text"
+                android:textStyle="bold" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@android:color/white"
+                android:padding="30dp"
+                android:paddingStart="30dp"
+                android:visibility="visible"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="6dp">
+
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="vertical">
+
+                    <EditText
+                        android:id="@+id/edtName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:hint="Product Name"
+                        android:padding="14dp"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/edtDescription"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:hint="Description"
+                        android:padding="14dp"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/edtQuantity"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:hint="Quantity"
+                        android:inputType="number"
+                        android:padding="14dp"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/edtPrice"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:hint="Price"
+                        android:inputType="numberDecimal"
+                        android:padding="14dp"
+                        android:textSize="16sp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <Button
+                android:id="@+id/btnUpdate"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="16dp"
+                android:fontFamily="sans-serif-medium"
+                android:padding="14dp"
+                android:text="Update"
+                android:background="@drawable/border"
+                android:textColor="@color/sub_text"                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <!-- Form nhập thông tin -->
+
+        <!-- Nút Cập nhật -->
+    </LinearLayout>
+</ScrollView>

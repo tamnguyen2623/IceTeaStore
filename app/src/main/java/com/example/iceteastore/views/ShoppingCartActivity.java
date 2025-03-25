@@ -106,4 +106,11 @@ public class ShoppingCartActivity extends AppCompatActivity {
             Toast.makeText(this, "Đơn hàng đã gửi thành công!", Toast.LENGTH_SHORT).show();
         }
     }
+    private void reloadCart() {
+        cartItems.clear();
+        cartItems.addAll(cartDAO.getCartItems(username));
+        adapter.notifyDataSetChanged();
+        calculateTotalPrice();
+    }
+
 }

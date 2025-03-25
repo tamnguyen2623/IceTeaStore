@@ -24,8 +24,8 @@ public class ShoppingCartDAO {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("username", username);
-        values.put("productId", item.getName().hashCode());
-        values.put("imageResource", item.getImageResource());
+        values.put("productId", item.getName().hashCode()); // Hoặc dùng ID từ Product nếu có
+        values.put("imageResource", item.getImageResource()); // Lưu chuỗi ảnh thay vì int
         values.put("quantity", item.getQuantity());
         values.put("price", item.getPrice());
 
@@ -41,12 +41,12 @@ public class ShoppingCartDAO {
 
         if (cursor.moveToFirst()) {
             do {
-                String name = "Product " + cursor.getInt(1);
-                int imageResource = cursor.getInt(2);
-                int quantity = cursor.getInt(3);
-                double price = cursor.getDouble(4);
+                String name = "Product " + cursor.getInt(cursor.getColumnIndexOrThrow("productId"));
+                String imageResource = cursor.getString(cursor.getColumnIndexOrThrow("imageResource")); // Lấy ảnh dưới dạng String
+                int quantity = cursor.getInt(cursor.getColumnIndexOrThrow("quantity"));
+                double price = cursor.getDouble(cursor.getColumnIndexOrThrow("price"));
 
-                cartList.add(new ShoppingCart(name, imageResource, quantity, price, 4.5f));
+                cartList.add(new ShoppingCart(name, imageResource, quantity, price));
             } while (cursor.moveToNext());
         }
         cursor.close();

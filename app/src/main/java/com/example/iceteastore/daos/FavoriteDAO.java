@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.iceteastore.database_helper.DatabaseHelper;
 import com.example.iceteastore.models.Product;
@@ -14,9 +15,11 @@ import java.util.List;
 
 public class FavoriteDAO {
     private DatabaseHelper dbHelper;
+    private Context context;
 
     public FavoriteDAO(Context context) {
         this.dbHelper = new DatabaseHelper(context);
+        this.context = context;
     }
 
     // ✅ Thêm sản phẩm vào danh sách yêu thích
@@ -33,6 +36,7 @@ public class FavoriteDAO {
             Log.e("FavoriteDAO", "Lỗi khi thêm vào favorites: " + username + " - " + productId);
         } else {
             Log.d("FavoriteDAO", "Thêm thành công: " + username + " - " + productId);
+            Toast.makeText(context, "Added to favorites list successfully", Toast.LENGTH_SHORT).show();
         }
 
         return result != -1;
@@ -47,6 +51,7 @@ public class FavoriteDAO {
 
         if (result > 0) {
             Log.d("FavoriteDAO", "Xóa thành công sản phẩm ID: " + productId + " khỏi danh sách yêu thích.");
+            Toast.makeText(context, "Remove to favorites list successfully", Toast.LENGTH_SHORT).show();
         } else {
             Log.e("FavoriteDAO", "Lỗi: Không thể xóa sản phẩm ID: " + productId);
         }

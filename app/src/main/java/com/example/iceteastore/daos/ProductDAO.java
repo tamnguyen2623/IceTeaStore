@@ -60,6 +60,31 @@ public class ProductDAO {
         return result != -1;
     }
 
+    // update product
+    public boolean updateProduct(Product product) {
+        SQLiteDatabase db = this.dbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put("name", product.getName());
+        values.put("description", product.getDescription());
+        values.put("image", product.getImage());
+        values.put("quantity", product.getQuantity());
+        values.put("price", product.getPrice());
+
+        int rowsAffected = db.update("products", values, "id=?", new String[]{String.valueOf(product.getId())});
+        db.close();
+
+        return rowsAffected > 0;
+    }
+
+    public boolean deleteProduct(int productId) {
+        SQLiteDatabase db = this.dbHelper.getWritableDatabase();
+        int result = db.delete("products", "id = ?", new String[]{String.valueOf(productId)});
+        db.close();
+        return result > 0;
+    }
+
+
     public Product getProductById(int id) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         Product product = null;
