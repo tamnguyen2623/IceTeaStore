@@ -21,6 +21,7 @@ import com.example.iceteastore.daos.FavoriteDAO;
 import com.example.iceteastore.daos.ShoppingCartDAO;
 import com.example.iceteastore.models.Product;
 import com.example.iceteastore.models.ShoppingCart;
+import com.example.iceteastore.utils.SessionManager;
 import com.example.iceteastore.views.DetailActivity;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -32,10 +33,12 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
     private Context context;
     private List<Product> productList;
+    private SessionManager sessionManager; // Khai báo SessionManager
 
     public ProductAdapter(Context context, List<Product> productList) {
         this.context = context;
         this.productList = productList;
+        this.sessionManager = new SessionManager(context); // Khởi tạo SessionManager trong constructor
     }
 
     @NonNull
@@ -48,6 +51,14 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
         Product product = productList.get(position);
+        String username = sessionManager.getLoggedInUser(); // Lấy username từ session trong onBindViewHolder
+
+        // Kiểm tra nếu username null thì thông báo
+        if (username == null) {
+            Toast.makeText(context, "Bạn chưa đăng nhập!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         holder.tvProductName.setText(product.getName());
         holder.tvRating.setText("⭐ " + product.getRating() + " (" + product.getReviews() + " reviews)");
         holder.tvPrice.setText("$" + product.getPrice());
@@ -65,7 +76,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
         // Kiểm tra sản phẩm có trong danh sách yêu thích không
         FavoriteDAO favoriteDAO = new FavoriteDAO(context);
-        String username = "user123"; // Thay bằng username thực tế của người dùng
         boolean isFavorite = favoriteDAO.isFavorite(username, product.getId());
 
         // Cập nhật UI của icon trái tim
@@ -81,6 +91,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
                 holder.ivFavorite.setImageResource(R.drawable.ic_favorite_filled);
             }
         });
+
         // Xử lý khi bấm vào tên sản phẩm
         holder.tvProductName.setOnClickListener(v -> {
             View dialogView = LayoutInflater.from(context).inflate(R.layout.activity_product_detail, null);
@@ -106,7 +117,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             } else {
                 ivDialogProductImage.setImageResource(R.drawable.placeholder_image);
             }
+
             Button btnAddToOrder = dialogView.findViewById(R.id.btn_order);
+
             // Xử lý khi bấm nút "Add to order"
             btnAddToOrder.setOnClickListener(v1 -> {
                 ShoppingCartDAO shoppingCartDAO = new ShoppingCartDAO(context);
@@ -120,8 +133,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
             bottomSheetDialog.show();
         });
-
-
     }
 
     @Override

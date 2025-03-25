@@ -17,6 +17,7 @@ import com.example.iceteastore.R;
 import com.example.iceteastore.adapters.ShoppingCartAdapter;
 import com.example.iceteastore.daos.ShoppingCartDAO;
 import com.example.iceteastore.models.ShoppingCart;
+import com.example.iceteastore.utils.SessionManager;
 
 import java.util.List;
 
@@ -29,7 +30,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
     private Button btnSendOrder;
     private ImageButton btnBack;
     private ShoppingCartDAO cartDAO;
-    private String username = "user123";  // Giả định username (có thể lấy từ SharedPreferences)
+    private String username;  // Giả định username (có thể lấy từ SharedPreferences)
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -42,6 +43,15 @@ public class ShoppingCartActivity extends AppCompatActivity {
         btnSendOrder = findViewById(R.id.btnSendOrder);
         btnBack = findViewById(R.id.btnBack);
         cartDAO = new ShoppingCartDAO(this);
+        // Lấy username từ SessionManager
+        SessionManager sessionManager = new SessionManager(this);
+        username = sessionManager.getLoggedInUser();
+
+        if (username == null || username.isEmpty()) {
+            Toast.makeText(this, "Lỗi: Không thể xác định người dùng!", Toast.LENGTH_SHORT).show();
+            finish(); // Đóng activity nếu không có username hợp lệ
+            return;
+        }
 
         loadCartData();
 
