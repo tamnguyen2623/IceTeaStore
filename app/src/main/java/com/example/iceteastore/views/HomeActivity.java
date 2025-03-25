@@ -54,13 +54,13 @@ public class HomeActivity extends AppCompatActivity {
         bottomNavigationView.setSelectedItemId(R.id.home);
 
         // Ẩn/hiện menu theo role
-        if ("user".equals(role)) {
-            bottomNavigationView.getMenu().findItem(R.id.home).setVisible(true);
-            bottomNavigationView.getMenu().findItem(R.id.shopping_cart).setVisible(true);
-            bottomNavigationView.getMenu().findItem(R.id.profile).setVisible(true);
-            bottomNavigationView.getMenu().findItem(R.id.product).setVisible(false);
-            bottomNavigationView.getMenu().findItem(R.id.order).setVisible(false);
-        }
+//        if ("user".equals(role)) {
+//            bottomNavigationView.getMenu().findItem(R.id.home).setVisible(true);
+//            bottomNavigationView.getMenu().findItem(R.id.shopping_cart).setVisible(true);
+//            bottomNavigationView.getMenu().findItem(R.id.profile).setVisible(true);
+//            bottomNavigationView.getMenu().findItem(R.id.product).setVisible(false);
+//            bottomNavigationView.getMenu().findItem(R.id.order).setVisible(false);
+//        }
 
         // Xử lý chuyển trang khi bấm vào item navbar
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {

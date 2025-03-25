@@ -2,8 +2,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
+    android:background="@color/bg"
     android:padding="16dp">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ImageButton
+        android:id="@+id/btnBack"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/back_button"
+        android:contentDescription="Back"
+        android:padding="8dp"
+        android:radius="15dp"
+        android:src="@drawable/baseline_arrow_back_24" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -11,49 +28,13 @@
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/topBar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <ImageView
-                android:id="@+id/ivLocation"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/ic_location"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:tint="@color/gray" />
-
-            <TextView
-                android:id="@+id/tvLocation"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:text="Gram Bistro"
-                android:textColor="@color/gray"
-                android:textSize="14sp"
-                app:layout_constraintStart_toEndOf="@id/ivLocation"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/ivFavoriteList"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:src="@drawable/ic_favorite_filled"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
         <TextView
             android:id="@+id/tvTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:text="Add Product"
-            android:textColor="@color/black"
+            android:textColor="@color/text"
             android:textSize="24sp"
             android:textStyle="bold" />
 
@@ -72,10 +53,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:backgroundTint="@color/teal_700"
             android:padding="10dp"
             android:text="Select Image"
-            android:textColor="@android:color/white" />
+            android:background="@drawable/border"
+            android:textColor="@color/sub_text"
+            />
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -133,19 +115,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:backgroundTint="@color/blue"
+            android:background="@drawable/border"
+            android:textColor="@color/sub_text"
             android:padding="12dp"
             android:text="Save Product"
-            android:textColor="@android:color/white" />
+            />
 
-        <Button
-            android:id="@+id/btnViewData"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:backgroundTint="@color/gray"
-            android:padding="12dp"
-            android:text="View Product List"
-            android:textColor="@android:color/white" />
+<!--        <Button-->
+<!--            android:id="@+id/btnViewData"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="8dp"-->
+<!--            android:backgroundTint="@color/gray"-->
+<!--            android:padding="12dp"-->
+<!--            android:text="View Product List"-->
+<!--            android:textColor="@android:color/white" />-->
     </LinearLayout>
+</LinearLayout>
 </ScrollView>
