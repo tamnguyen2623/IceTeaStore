@@ -78,9 +78,20 @@ public class ProductManagementActivity extends AppCompatActivity {
         btnSave.setOnClickListener(v -> {
             String name = edtName.getText().toString().trim();
             String description = edtDescription.getText().toString().trim();
-            int quantity = Integer.parseInt(edtQuantity.getText().toString().trim());
-            double price = Double.parseDouble(edtPrice.getText().toString().trim());
+            int quantity = 0;
+            double price = 0;
+            try{
+                quantity = Integer.parseInt(edtQuantity.getText().toString().trim());
+                price = Double.parseDouble(edtPrice.getText().toString().trim());
+            }catch (Exception e){
+                Toast.makeText(this, "Quantity and price must be number", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
+            if (quantity < 0 || price < 0) {
+                Toast.makeText(this, "Quantity and price must be non-negative number", Toast.LENGTH_SHORT).show();
+                return;
+            }
             if (!name.isEmpty() && !description.isEmpty() && !imageBase64.isEmpty()) {
                 Product product = new Product(0, name, description, imageBase64, quantity, price, 4.5f, 100);
                 boolean isInserted = productDAO.insertProduct(product);
