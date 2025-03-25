@@ -36,11 +36,11 @@ public class LoginActivity extends AppCompatActivity {
         String role = sessionManager.getUserRole();
 
         if (username != null && role != null) {
-            if ("admin".equals(role)) {
-                navigateToAdmin();
-            } else {
-                navigateToHome();
-            }
+//            if ("admin".equals(role)) {
+//                navigateToAdmin();
+//            } else {
+//                navigateToHome();
+//            }
         }
 
         btnLogin.setOnClickListener(v -> handleLogin());
