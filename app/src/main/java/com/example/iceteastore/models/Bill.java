@@ -7,12 +7,14 @@ public class Bill {
     private Date date;
     private double total;
     private String username;
+    private String status;
 
-    public Bill(int id, Date date, double total, String username) {
+    public Bill(int id, Date date, double total, String username, String status) {
         this.id = id;
         this.date = date;
         this.total = total;
         this.username = username;
+        this.status = status;
     }
 
     public int getId() {
@@ -45,5 +47,13 @@ public class Bill {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }
