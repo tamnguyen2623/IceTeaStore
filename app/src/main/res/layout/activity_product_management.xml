@@ -2,6 +2,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bg"
     android:padding="16dp">
 
 <LinearLayout
@@ -33,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:text="Add Product"
-            android:textColor="@color/black"
+            android:textColor="@color/text"
             android:textSize="24sp"
             android:textStyle="bold" />
 
@@ -52,10 +53,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:backgroundTint="@color/teal_700"
             android:padding="10dp"
             android:text="Select Image"
-            android:textColor="@android:color/white" />
+            android:background="@drawable/border"
+            android:textColor="@color/sub_text"
+            />
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -113,10 +115,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:backgroundTint="@color/blue"
+            android:background="@drawable/border"
+            android:textColor="@color/sub_text"
             android:padding="12dp"
             android:text="Save Product"
-            android:textColor="@android:color/white" />
+            />
 
 <!--        <Button-->
 <!--            android:id="@+id/btnViewData"-->

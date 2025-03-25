@@ -20,6 +20,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ProductManagementListActivity extends AppCompatActivity {
     private ArrayList<Product> productList;
@@ -78,6 +79,24 @@ public class ProductManagementListActivity extends AppCompatActivity {
 
         adapter = new ProductManagementAdapter(this, productList);
         recyclerView.setAdapter(adapter);
+    }
+
+    private void reloadProductList() {
+        List<Product> updatedList = productDAO.getAllProducts(); // Lấy danh sách sản phẩm mới từ DB
+
+        if (updatedList != null) {
+            productList.clear();
+            productList.addAll(updatedList);
+        }
+
+        if (adapter != null) {
+            adapter.notifyDataSetChanged(); // Cập nhật RecyclerView
+        }
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        reloadProductList(); // Load lại danh sách sản phẩm khi quay về màn hình này
     }
 
 }
