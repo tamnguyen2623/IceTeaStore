@@ -53,7 +53,7 @@ public class HomeActivity extends AppCompatActivity {
         // Đánh dấu Home là item được chọn
         bottomNavigationView.setSelectedItemId(R.id.home);
 
-        // Ẩn/hiện menu theo role
+
 //        if ("user".equals(role)) {
 //            bottomNavigationView.getMenu().findItem(R.id.home).setVisible(true);
 //            bottomNavigationView.getMenu().findItem(R.id.shopping_cart).setVisible(true);
