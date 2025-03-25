@@ -1,6 +1,8 @@
 package com.example.iceteastore.adapters;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +18,9 @@ import com.bumptech.glide.Glide;
 import com.example.iceteastore.R;
 import com.example.iceteastore.daos.FavoriteDAO;
 import com.example.iceteastore.models.Product;
+import com.example.iceteastore.views.DetailActivity;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,6 +78,39 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
                 holder.ivFavorite.setImageResource(R.drawable.ic_favorite_filled);
             }
         });
+        // Xử lý khi bấm vào tên sản phẩm
+        holder.tvProductName.setOnClickListener(v -> {
+            View dialogView = LayoutInflater.from(context).inflate(R.layout.activity_product_detail, null);
+            BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(context);
+            bottomSheetDialog.setContentView(dialogView);
+
+            BottomSheetBehavior<View> bottomSheetBehavior = BottomSheetBehavior.from((View) dialogView.getParent());
+            bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+            bottomSheetBehavior.setPeekHeight(BottomSheetBehavior.PEEK_HEIGHT_AUTO);
+
+            ImageView ivDialogProductImage = dialogView.findViewById(R.id.ivProductImage);
+            TextView tvDialogProductName = dialogView.findViewById(R.id.tvProductName);
+            TextView tvDialogRating = dialogView.findViewById(R.id.tvRating);
+            TextView tvDialogPrice = dialogView.findViewById(R.id.tvPrice);
+
+            tvDialogProductName.setText(product.getName());
+            tvDialogRating.setText("⭐ " + product.getRating() + " (" + product.getReviews() + " reviews)");
+            tvDialogPrice.setText("$" + product.getPrice());
+
+            // Load ảnh sản phẩm
+            if (!product.getImage().isEmpty()) {
+                int imageResource = context.getResources().getIdentifier(product.getImage(), "drawable", context.getPackageName());
+                if (imageResource != 0) {
+                    ivDialogProductImage.setImageResource(imageResource);
+                } else {
+                    ivDialogProductImage.setImageResource(R.drawable.placeholder_image);
+                }
+            }
+
+            bottomSheetDialog.show();
+        });
+
+
     }
 
     @Override
