@@ -96,7 +96,7 @@ public class HomeActivity extends AppCompatActivity {
 
         // Kiểm tra nếu database rỗng thì thêm dữ liệu mẫu
         if (productList.isEmpty()) {
-            insertSampleData();
+//            insertSampleData();
             productList = productDAO.getAllProducts();
         }
 
