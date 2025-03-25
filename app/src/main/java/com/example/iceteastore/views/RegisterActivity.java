@@ -90,7 +90,7 @@ public class RegisterActivity extends AppCompatActivity {
             Toast.makeText(this, "Phone number already exists!", Toast.LENGTH_SHORT).show();
         } else {
             // Lưu vào SQLite
-            User newUser = new User(username, password, fullName, birthday, phoneNumber, address, "admin");
+            User newUser = new User(username, password, fullName, birthday, phoneNumber, address, "user");
             boolean isInserted = userDAO.insertUser(newUser);
 
             if (isInserted) {
