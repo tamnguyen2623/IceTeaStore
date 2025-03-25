@@ -68,8 +68,8 @@ public class HomeActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int itemId = item.getItemId();
                 if (itemId == R.id.shopping_cart) {
-//                    startActivity(new Intent(HomeActivity.this, ProductManagementListActivity.class));
-//                    overridePendingTransition(0, 0);
+                    startActivity(new Intent(HomeActivity.this, ShoppingCartActivity.class));
+                    overridePendingTransition(0, 0);
                     return true;
                 } else if (itemId == R.id.profile) {
                     startActivity(new Intent(HomeActivity.this, ProfileActivity.class));

@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,7 +18,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.iceteastore.R;
 import com.example.iceteastore.daos.FavoriteDAO;
+import com.example.iceteastore.daos.ShoppingCartDAO;
 import com.example.iceteastore.models.Product;
+import com.example.iceteastore.models.ShoppingCart;
 import com.example.iceteastore.views.DetailActivity;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -51,8 +54,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
         // Load ảnh sản phẩm
         String imagePath = product.getImage();
+        int imageResource = context.getResources().getIdentifier(imagePath, "drawable", context.getPackageName());
         if (!imagePath.isEmpty()) {
-            int imageResource = context.getResources().getIdentifier(imagePath, "drawable", context.getPackageName());
             if (imageResource != 0) {
                 holder.ivProductImage.setImageResource(imageResource);
             } else {
@@ -62,7 +65,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
         // Kiểm tra sản phẩm có trong danh sách yêu thích không
         FavoriteDAO favoriteDAO = new FavoriteDAO(context);
-        String username = "current_user"; // Thay bằng username thực tế của người dùng
+        String username = "user123"; // Thay bằng username thực tế của người dùng
         boolean isFavorite = favoriteDAO.isFavorite(username, product.getId());
 
         // Cập nhật UI của icon trái tim
@@ -98,14 +101,22 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             tvDialogPrice.setText("$" + product.getPrice());
 
             // Load ảnh sản phẩm
-            if (!product.getImage().isEmpty()) {
-                int imageResource = context.getResources().getIdentifier(product.getImage(), "drawable", context.getPackageName());
-                if (imageResource != 0) {
-                    ivDialogProductImage.setImageResource(imageResource);
-                } else {
-                    ivDialogProductImage.setImageResource(R.drawable.placeholder_image);
-                }
+            if (imageResource != 0) {
+                ivDialogProductImage.setImageResource(imageResource);
+            } else {
+                ivDialogProductImage.setImageResource(R.drawable.placeholder_image);
             }
+            Button btnAddToOrder = dialogView.findViewById(R.id.btn_order);
+            // Xử lý khi bấm nút "Add to order"
+            btnAddToOrder.setOnClickListener(v1 -> {
+                ShoppingCartDAO shoppingCartDAO = new ShoppingCartDAO(context);
+                ShoppingCart item = new ShoppingCart(product.getName(), imageResource, 1, product.getPrice(), product.getRating());
+
+                shoppingCartDAO.addToCart(username, item);
+                Toast.makeText(context, "Đã thêm " + product.getName() + " vào giỏ hàng!", Toast.LENGTH_SHORT).show();
+                bottomSheetDialog.dismiss();
+                Log.d("ShoppingCartDAO", "Added item: " + item.getName());
+            });
 
             bottomSheetDialog.show();
         });
@@ -126,6 +137,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     public static class ProductViewHolder extends RecyclerView.ViewHolder {
         TextView tvProductName, tvRating, tvPrice;
         ImageView ivProductImage, ivFavorite;
+        Button btnOrder;
 
         public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -134,6 +146,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             tvPrice = itemView.findViewById(R.id.tvPrice);
             ivProductImage = itemView.findViewById(R.id.ivProductImage);
             ivFavorite = itemView.findViewById(R.id.ivFavorite); // Nút yêu thích
+            btnOrder = itemView.findViewById(R.id.btn_order);
         }
     }
 }

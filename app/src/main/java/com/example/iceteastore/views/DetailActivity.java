@@ -2,6 +2,7 @@ package com.example.iceteastore.views;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -11,7 +12,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.iceteastore.R;
 import com.example.iceteastore.daos.ProductDAO;
+import com.example.iceteastore.daos.ShoppingCartDAO;
+import com.example.iceteastore.daos.UserDAO;
 import com.example.iceteastore.models.Product;
+import com.example.iceteastore.models.ShoppingCart;
+import com.example.iceteastore.models.User;
+import com.example.iceteastore.utils.SessionManager;
 
 public class DetailActivity extends AppCompatActivity {
     private ImageView ivProductImage;
@@ -44,18 +50,17 @@ public class DetailActivity extends AppCompatActivity {
             if (product != null) {
                 tvProductName.setText(product.getName());
                 tvRating.setText("⭐ " + product.getRating());
-                tvPrice.setText("$" + product.getPrice());
+//                tvPrice.setText("$" + product.getPrice());
                 tvDescription.setText(product.getDescription());
             } else {
                 Toast.makeText(this, "Product not found!", Toast.LENGTH_SHORT).show();
                 finish(); // Đóng activity nếu không tìm thấy sản phẩm
             }
         }
-
-
         // Xử lý khi nhấn nút đặt hàng
         btnOrder.setOnClickListener(v -> {
             Toast.makeText(this, "Added to cart: " + product.getName(), Toast.LENGTH_SHORT).show();
         });
     }
+
 }
