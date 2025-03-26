@@ -112,20 +112,36 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             tvDialogRating.setText("⭐ " + product.getRating() + " (" + product.getReviews() + " reviews)");
             tvDialogPrice.setText("$" + product.getPrice());
 
-
-
             Button btnAddToOrder = dialogView.findViewById(R.id.btn_order);
 
-            // Xử lý khi bấm nút "Add to order"
             btnAddToOrder.setOnClickListener(v1 -> {
                 ShoppingCartDAO shoppingCartDAO = new ShoppingCartDAO(context);
-                ShoppingCart item = new ShoppingCart(product.getName(), product.getImage(), 1, product.getPrice());
+                List<ShoppingCart> cartItems = shoppingCartDAO.getCartItems(username);
 
-                shoppingCartDAO.addToCart(username, item);
-                Toast.makeText(context, "Đã thêm " + product.getName() + " vào giỏ hàng!", Toast.LENGTH_SHORT).show();
+                boolean itemExists = false;
+
+                for (ShoppingCart cartItem : cartItems) {
+                    if (cartItem.getProductId() == product.getId()) {
+                        // Sản phẩm đã có trong giỏ hàng -> Tăng số lượng
+                        int newQuantity = cartItem.getQuantity() + 1;
+                        shoppingCartDAO.updateQuantity(username, product.getId(), newQuantity);
+                        Toast.makeText(context, "Tăng số lượng " + product.getName() + " lên " + newQuantity, Toast.LENGTH_SHORT).show();
+                        itemExists = true;
+                        break;
+                    }
+                }
+
+                if (!itemExists) {
+                    // Nếu chưa có, thêm mới vào giỏ hàng
+                    ShoppingCart newItem = new ShoppingCart(product.getId(), product.getName(), product.getImage(), 1, product.getPrice());
+                    shoppingCartDAO.addToCart(username, newItem);
+                    Toast.makeText(context, "Đã thêm " + product.getName() + " vào giỏ hàng!", Toast.LENGTH_SHORT).show();
+                }
+
                 bottomSheetDialog.dismiss();
-                Log.d("ShoppingCartDAO", "Added item: " + item.getName());
             });
+
+
 
             bottomSheetDialog.show();
         });

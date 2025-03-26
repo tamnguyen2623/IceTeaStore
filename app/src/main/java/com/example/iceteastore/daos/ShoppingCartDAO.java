@@ -1,6 +1,5 @@
 package com.example.iceteastore.daos;
 
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -16,7 +15,7 @@ public class ShoppingCartDAO {
     private DatabaseHelper dbHelper;
 
     public ShoppingCartDAO(Context context) {
-        dbHelper = new DatabaseHelper(context);
+        this.dbHelper = new DatabaseHelper(context);
     }
 
     // Thêm sản phẩm vào giỏ hàng
@@ -24,8 +23,9 @@ public class ShoppingCartDAO {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("username", username);
-        values.put("productId", item.getName().hashCode()); // Hoặc dùng ID từ Product nếu có
-        values.put("imageResource", item.getImageResource()); // Lưu chuỗi ảnh thay vì int
+        values.put("productId", item.getProductId()); // ✅ Thêm productId
+        values.put("name", item.getName());
+        values.put("imageResource", item.getImageResource());
         values.put("quantity", item.getQuantity());
         values.put("price", item.getPrice());
 
@@ -41,14 +41,16 @@ public class ShoppingCartDAO {
 
         if (cursor.moveToFirst()) {
             do {
-                String name = "Product " + cursor.getInt(cursor.getColumnIndexOrThrow("productId"));
-                String imageResource = cursor.getString(cursor.getColumnIndexOrThrow("imageResource")); // Lấy ảnh dưới dạng String
+                int productId = cursor.getInt(cursor.getColumnIndexOrThrow("productId")); // ✅ Thêm productId
+                String name = cursor.getString(cursor.getColumnIndexOrThrow("name"));
+                String imageResource = cursor.getString(cursor.getColumnIndexOrThrow("imageResource"));
                 int quantity = cursor.getInt(cursor.getColumnIndexOrThrow("quantity"));
                 double price = cursor.getDouble(cursor.getColumnIndexOrThrow("price"));
 
-                cartList.add(new ShoppingCart(name, imageResource, quantity, price));
+                cartList.add(new ShoppingCart(productId, name, imageResource, quantity, price));
             } while (cursor.moveToNext());
         }
+
         cursor.close();
         db.close();
         return cartList;
@@ -58,7 +60,7 @@ public class ShoppingCartDAO {
     public void updateQuantity(String username, int productId, int quantity) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         if (quantity <= 0) {
-            removeItem(username, productId);  // Xóa khỏi giỏ hàng nếu số lượng = 0
+            removeItem(username, productId);
         } else {
             ContentValues values = new ContentValues();
             values.put("quantity", quantity);
@@ -66,7 +68,6 @@ public class ShoppingCartDAO {
         }
         db.close();
     }
-
 
     // Xóa sản phẩm khỏi giỏ hàng
     public void removeItem(String username, int productId) {
@@ -81,6 +82,4 @@ public class ShoppingCartDAO {
         db.delete("shopping_cart", "username=?", new String[]{username});
         db.close();
     }
-
 }
-

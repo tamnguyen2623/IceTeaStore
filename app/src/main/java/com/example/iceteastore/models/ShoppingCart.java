@@ -1,16 +1,28 @@
 package com.example.iceteastore.models;
 
-public class ShoppingCart {
+import java.io.Serializable;
+
+public class ShoppingCart implements Serializable {
+    private int productId;
     private String name;
     private String imageResource;
     private int quantity;
     private double price;
 
-    public ShoppingCart(String name, String imageResource, int quantity, double price) {
+    public ShoppingCart(int productId, String name, String imageResource, int quantity, double price) {
+        this.productId = productId;
         this.name = name;
         this.imageResource = imageResource;
         this.quantity = quantity;
         this.price = price;
+    }
+
+    public int getProductId() {
+        return productId;
+    }
+
+    public void setProductId(int productId) {
+        this.productId = productId;
     }
 
     public String getName() {
