@@ -1,24 +1,20 @@
 package com.example.iceteastore.models;
 
-public class ShoppingCart {
-    private String username;
+import java.io.Serializable;
+
+public class ShoppingCart implements Serializable {
     private int productId;
+    private String name;
+    private String imageResource;
     private int quantity;
     private double price;
 
-    public ShoppingCart(String username, int productId, int quantity, double price) {
-        this.username = username;
+    public ShoppingCart(int productId, String name, String imageResource, int quantity, double price) {
         this.productId = productId;
+        this.name = name;
+        this.imageResource = imageResource;
         this.quantity = quantity;
         this.price = price;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public int getProductId() {
@@ -27,6 +23,22 @@ public class ShoppingCart {
 
     public void setProductId(int productId) {
         this.productId = productId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getImageResource() {
+        return imageResource;
+    }
+
+    public void setImageResource(String imageResource) {
+        this.imageResource = imageResource;
     }
 
     public int getQuantity() {
