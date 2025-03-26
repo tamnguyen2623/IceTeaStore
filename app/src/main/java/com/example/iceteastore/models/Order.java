@@ -1,3 +1,4 @@
+//OrderModel
 package com.example.iceteastore.models;
 
 public class Order {
@@ -5,6 +6,9 @@ public class Order {
     private int productId;
     private int quantity;
     private double price;
+
+    public Order() {
+    }
 
     public Order(int billId, int productId, int quantity, double price) {
         this.billId = billId;

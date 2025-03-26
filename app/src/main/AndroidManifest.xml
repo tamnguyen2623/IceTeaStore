@@ -16,7 +16,10 @@
         android:theme="@style/Theme.IceTeaStore"
         tools:targetApi="31">
         <activity
-            android:name=".views.OrderSuccessActivity"
+            android:name=".views.OrdersuccessfulActivity"
+            android:exported="false" />
+        <activity
+            android:name=".views.orderActivity"
             android:exported="false" />
         <activity
             android:name=".views.OrderConfirmationActivity"
