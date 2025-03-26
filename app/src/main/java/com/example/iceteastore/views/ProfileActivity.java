@@ -77,6 +77,16 @@ public class ProfileActivity extends AppCompatActivity {
             Intent intent = new Intent(ProfileActivity.this, FavoriteActivity.class);
             startActivity(intent);
         });
+        // Thêm vào onCreate
+        TextView tvSignOut = findViewById(R.id.sign_out);
+        tvSignOut.setOnClickListener(v -> {
+            sessionManager.logout(); // Xóa session người dùng
+            Intent intent = new Intent(ProfileActivity.this, LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK); // Xóa toàn bộ activity stack
+            startActivity(intent);
+            finish();
+        });
+
 //
 //        // Chuyển sang trang Cart
 //        tvCart.setOnClickListener(v -> {

@@ -22,7 +22,10 @@ import com.example.iceteastore.daos.ShoppingCartDAO;
 import com.example.iceteastore.models.ShoppingCart;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.example.iceteastore.utils.SessionManager;
 
+
+import java.io.Serializable;
 import java.util.List;
 
 public class ShoppingCartActivity extends AppCompatActivity {
@@ -32,9 +35,8 @@ public class ShoppingCartActivity extends AppCompatActivity {
     private List<ShoppingCart> cartItems;
     private TextView txtTotalPrice, txtEmptyCart;
     private Button btnSendOrder;
-    private ImageButton btnBack;
     private ShoppingCartDAO cartDAO;
-    private String username = "user123";  // Giả định username (có thể lấy từ SharedPreferences)
+    private String username;  // Giả định username (có thể lấy từ SharedPreferences)
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -70,8 +72,16 @@ public class ShoppingCartActivity extends AppCompatActivity {
         txtTotalPrice = findViewById(R.id.txtTotalPrice);
         txtEmptyCart = findViewById(R.id.txtEmptyCart);
         btnSendOrder = findViewById(R.id.btnSendOrder);
-        btnBack = findViewById(R.id.btnBack);
         cartDAO = new ShoppingCartDAO(this);
+        // Lấy username từ SessionManager
+        SessionManager sessionManager = new SessionManager(this);
+        username = sessionManager.getLoggedInUser();
+
+        if (username == null || username.isEmpty()) {
+            Toast.makeText(this, "Lỗi: Không thể xác định người dùng!", Toast.LENGTH_SHORT).show();
+            finish(); // Đóng activity nếu không có username hợp lệ
+            return;
+        }
 
         loadCartData();
 
@@ -80,8 +90,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
         calculateTotalPrice();
-
-        btnBack.setOnClickListener(v -> finish());
+        
         btnSendOrder.setOnClickListener(v -> sendOrder());
     }
 
@@ -114,20 +123,28 @@ public class ShoppingCartActivity extends AppCompatActivity {
         }
     }
 
-    // Xử lý gửi đơn hàng
+    //Xử lý gửi đơn hàng
     private void sendOrder() {
         if (cartItems.isEmpty()) {
             Toast.makeText(this, "Giỏ hàng trống! Vui lòng thêm sản phẩm trước khi đặt hàng.", Toast.LENGTH_SHORT).show();
         } else {
-            cartDAO.clearCart(username);
-            cartItems.clear();
-            adapter.notifyDataSetChanged();
-            calculateTotalPrice();
-            Toast.makeText(this, "Đơn hàng đã gửi thành công!", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(this, OrderActivity.class);
+            // Chuyển qua OrderConfirmationActivity và truyền danh sách sản phẩm
+            Intent intent = new Intent(this, OrderConfirmationActivity.class);
+            intent.putExtra("cartItems", (Serializable) cartItems);
             startActivity(intent);
-            finish();
         }
-
     }
+
+    protected void onResume() {
+        super.onResume();
+        reloadCart();
+    }
+
+    private void reloadCart() {
+        cartItems.clear();
+        cartItems.addAll(cartDAO.getCartItems(username));
+        adapter.notifyDataSetChanged();
+        calculateTotalPrice();
+    }
+
 }

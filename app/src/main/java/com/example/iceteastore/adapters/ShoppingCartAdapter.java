@@ -73,13 +73,14 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
         holder.btnDecrease.setOnClickListener(v -> {
             if (item.getQuantity() > 1) {
                 item.setQuantity(item.getQuantity() - 1);
-                cartDAO.updateQuantity(username, item.getName().hashCode(), item.getQuantity());  // Cập nhật vào SQLite
+                cartDAO.updateQuantity(username, item.getProductId(), item.getQuantity());  // Cập nhật vào SQLite
                 notifyItemChanged(position);
                 listener.onQuantityChanged();
             } else {
-                removeItem(position);
+                removeItem(position);  // Gọi hàm xóa sản phẩm
             }
         });
+
 
         // Xử lý xóa sản phẩm khỏi giỏ hàng
 //        holder.btnRemove.setOnClickListener(v -> removeItem(position));
@@ -93,11 +94,19 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
     // Xóa sản phẩm khỏi giỏ hàng
     private void removeItem(int position) {
         ShoppingCart item = cartItems.get(position);
-        cartDAO.removeItem(username, item.getName().hashCode());  // Xóa khỏi SQLite
+        cartDAO.removeItem(username, item.getProductId());  // Dùng productId thay vì hashCode()
+
         cartItems.remove(position);  // Xóa khỏi danh sách hiển thị
-        notifyItemRemoved(position);  // Cập nhật UI tối ưu hơn
+
+        if (cartItems.isEmpty()) {
+            notifyDataSetChanged();  // Nếu danh sách trống, cập nhật toàn bộ giao diện
+        } else {
+            notifyItemRemoved(position);  // Nếu vẫn còn sản phẩm, cập nhật UI tối ưu hơn
+        }
+
         listener.onQuantityChanged();
     }
+
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView imgProduct;
