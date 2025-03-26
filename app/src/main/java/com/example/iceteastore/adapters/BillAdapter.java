@@ -46,10 +46,14 @@ public class BillAdapter extends RecyclerView.Adapter<BillAdapter.BillViewHolder
     @Override
     public void onBindViewHolder(@NonNull BillViewHolder holder, int position) {
         Bill bill = billList.get(position);
+        holder.txtBillId.setText("Bill code: " + bill.getId());
         holder.tvUser.setText("Customer: " + bill.getUsername());
-        holder.txtBillId.setText("Bill ID: " + bill.getId());
-        holder.txtPrice.setText("Total: $" + bill.getTotal());
+        holder.txtPrice.setText("Total price: " + bill.getTotal() + " VND");
         holder.txtStatus.setText("Status: " + bill.getStatus());
+
+        // Hiển thị danh sách sản phẩm
+        String productList = "Products ordered: " + String.join(", ", bill.getProductNames());
+        holder.txtProductList.setText(productList);
 
         holder.btnUpdate.setOnClickListener(v -> listener.onUpdateClick(bill));
 
@@ -66,7 +70,7 @@ public class BillAdapter extends RecyclerView.Adapter<BillAdapter.BillViewHolder
 
         androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(context);
         builder.setTitle("Confirm Delete");
-        builder.setMessage("Are you sure you want to delete \"" + item.getId() + "\"?");
+        builder.setMessage("Are you sure you want to delete of customer \"" + item.getUsername() + "\"?");
 
         // Nút xác nhận xóa
         builder.setPositiveButton("Yes", (dialog, id) -> {
@@ -103,7 +107,7 @@ public class BillAdapter extends RecyclerView.Adapter<BillAdapter.BillViewHolder
 
 
     public static class BillViewHolder extends RecyclerView.ViewHolder {
-        TextView tvUser, txtBillId, txtPrice, txtStatus;
+        TextView tvUser, txtBillId, txtPrice, txtStatus, txtProductList;
         ImageButton btnUpdate, btnDelete;
 
         public BillViewHolder(@NonNull View itemView) {
@@ -112,6 +116,7 @@ public class BillAdapter extends RecyclerView.Adapter<BillAdapter.BillViewHolder
             txtBillId = itemView.findViewById(R.id.txtBillId);
             txtPrice = itemView.findViewById(R.id.txtPrice);
             txtStatus = itemView.findViewById(R.id.txtStatus);
+            txtProductList= itemView.findViewById(R.id.txtProductList);
             btnUpdate = itemView.findViewById(R.id.btn_update);
             btnDelete = itemView.findViewById(R.id.btn_delete);
 

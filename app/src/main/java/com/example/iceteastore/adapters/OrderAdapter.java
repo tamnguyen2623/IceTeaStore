@@ -36,9 +36,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
     public void onBindViewHolder(@NonNull OrderViewHolder holder, int position) {
         Order order = orderList.get(position);
         holder.txtBillId.setText("Bill ID: " + order.getBillId());
-        holder.txtProductId.setText("Product ID: " + order.getProductId());
-        holder.txtQuantity.setText("Số lượng: " + order.getQuantity());
-        holder.txtPrice.setText("Giá: " + order.getPrice() + " VND");
+//        holder.txtProductId.setText("Product ID: " + order.getProductId());
+        holder.txtQuantity.setText("Quantity: " + order.getQuantity());
+        holder.txtPrice.setText("Price: $" + order.getPrice());
     }
 
     @Override
@@ -52,7 +52,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         public OrderViewHolder(@NonNull View itemView) {
             super(itemView);
             txtBillId = itemView.findViewById(R.id.txtBillId);
-            txtProductId = itemView.findViewById(R.id.txtProductId);
+//            txtProductId = itemView.findViewById(R.id.txtProductId);
             txtQuantity = itemView.findViewById(R.id.txtQuantity);
             txtPrice = itemView.findViewById(R.id.txtPrice);
         }

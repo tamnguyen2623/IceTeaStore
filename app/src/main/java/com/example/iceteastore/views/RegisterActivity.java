@@ -3,10 +3,7 @@ package com.example.iceteastore.views;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,21 +11,12 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.iceteastore.R;
-import com.example.iceteastore.adapters.BillAdapter;
-import com.example.iceteastore.daos.BillDAO;
 import com.example.iceteastore.daos.UserDAO;
-import com.example.iceteastore.database_helper.DatabaseHelper;
-import com.example.iceteastore.models.Bill;
 import com.example.iceteastore.models.User;
 
 public class RegisterActivity extends AppCompatActivity {

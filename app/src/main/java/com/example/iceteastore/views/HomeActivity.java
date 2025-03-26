@@ -48,22 +48,10 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        SharedPreferences sharedPreferences = getSharedPreferences("LoginSession", Context.MODE_PRIVATE);
-        String role = sharedPreferences.getString("role", null);
-
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
         // Đánh dấu Home là item được chọn
         bottomNavigationView.setSelectedItemId(R.id.home);
-
-
-//        if ("user".equals(role)) {
-//            bottomNavigationView.getMenu().findItem(R.id.home).setVisible(true);
-//            bottomNavigationView.getMenu().findItem(R.id.shopping_cart).setVisible(true);
-//            bottomNavigationView.getMenu().findItem(R.id.profile).setVisible(true);
-//            bottomNavigationView.getMenu().findItem(R.id.product).setVisible(false);
-//            bottomNavigationView.getMenu().findItem(R.id.order).setVisible(false);
-//        }
 
         // Xử lý chuyển trang khi bấm vào item navbar
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
@@ -75,7 +63,7 @@ public class HomeActivity extends AppCompatActivity {
                     overridePendingTransition(0, 0);
                     return true;
                 } else if (itemId == R.id.bill) {
-                    startActivity(new Intent(HomeActivity.this, OrderActivity.class));
+                    startActivity(new Intent(HomeActivity.this, orderActivity.class));
                     overridePendingTransition(0, 0);
                     return true;
                 } else if (itemId == R.id.profile) {
@@ -103,7 +91,7 @@ public class HomeActivity extends AppCompatActivity {
 
         // Kiểm tra nếu database rỗng thì thêm dữ liệu mẫu
         if (productList.isEmpty()) {
-            insertSampleData();
+//            insertSampleData();
             productList = productDAO.getAllProducts();
         }
 
@@ -226,11 +214,11 @@ public class HomeActivity extends AppCompatActivity {
     /**
      * Thêm dữ liệu mẫu vào SQLite (Chỉ chạy 1 lần)
      */
-    private void insertSampleData() {
-        productDAO.insertProduct(new Product(1, "Milk Tea", "Delicious tea", "food1", 100, 10.40, 5.0f, 120 ));
-        productDAO.insertProduct(new Product(2, "Ice Tea", "Healthy and tasty", "food2", 80, 14.10, 4.8f, 90));
-        productDAO.insertProduct(new Product(3, "StrawberryNew", "New tea", "food3", 120, 9.99, 4.5f, 75));
-    }
+//    private void insertSampleData() {
+//        productDAO.insertProduct(new Product(1, "Milk Tea", "Delicious tea", "food1", 100, 10.40, 5.0f, 120 ));
+//        productDAO.insertProduct(new Product(2, "Ice Tea", "Healthy and tasty", "food2", 80, 14.10, 4.8f, 90));
+//        productDAO.insertProduct(new Product(3, "StrawberryNew", "New tea", "food3", 120, 9.99, 4.5f, 75));
+//    }
     @Override
     protected void onResume() {
         super.onResume();

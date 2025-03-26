@@ -1,31 +1,50 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent"
-
-    android:layout_height="wrap_content" android:layout_margin="8dp" app:cardCornerRadius="8dp" app:cardElevation="2dp">
-
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg"
+    >
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="50dp"
         android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:fontFamily="sans-serif-medium"
+            android:textColor="@color/text"
+            android:text="Update status"
+            android:textSize="26sp"
+            android:textStyle="bold" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
         <ImageButton
             android:id="@+id/btnBack"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginStart="15dp"
-            android:layout_marginTop="20dp"
             android:background="@drawable/back_button"
             android:contentDescription="Back"
             android:padding="8dp"
             android:radius="15dp"
             android:src="@drawable/baseline_arrow_back_24" />
+        </LinearLayout>
+
+
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
+            android:background="@color/card_bg"
             android:padding="12dp">
 
 
@@ -52,13 +71,22 @@
                     android:layout_height="wrap_content"
                     android:text="Bill ID: 123"
                     android:textSize="16sp" />
+                <TextView
+                    android:id="@+id/txtProductList"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Product: name"
+                    android:textSize="16sp"
+                    android:textColor="@color/gray"
+                    android:layout_marginTop="2dp"/>
 
 
                 <TextView
                     android:id="@+id/txtPrice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Price: $10.00" />
+                    android:text="Price: $10.00"
+                    android:layout_marginBottom="10dp"/>
 
                 <Spinner
 
@@ -91,4 +119,4 @@
         </LinearLayout>
 
     </LinearLayout>
-</androidx.cardview.widget.CardView>
+</ScrollView>

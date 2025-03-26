@@ -34,9 +34,6 @@
             android:name=".views.AdminBillActivity"
             android:exported="false" />
         <activity
-            android:name=".views.RegisterActivity$AdminBillActivity"
-            android:exported="false" />
-        <activity
             android:name=".views.ProfileActivity"
             android:exported="false" />
         <activity

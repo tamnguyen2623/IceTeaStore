@@ -46,8 +46,8 @@ public class ProductManagementListActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int itemId = item.getItemId();
                 if (itemId == R.id.order) {
-//                    startActivity(new Intent(HomeActivity.this, ProductManagementActivity.class));
-//                    overridePendingTransition(0, 0);
+                    startActivity(new Intent(ProductManagementListActivity.this, AdminBillActivity.class));
+                    overridePendingTransition(0, 0);
                     return true;
                 } else if (itemId == R.id.logout) {
                     sessionManager.logout();

@@ -64,10 +64,12 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
         // Xử lý tăng số lượng
         holder.btnIncrease.setOnClickListener(v -> {
             item.setQuantity(item.getQuantity() + 1);
-            cartDAO.updateQuantity(username, item.getName().hashCode(), item.getQuantity());  // Cập nhật vào SQLite
-            notifyItemChanged(position);  // Chỉ cập nhật item thay vì toàn bộ danh sách
+            cartDAO.updateQuantity(username, item.getProductId(), item.getQuantity());  // Cập nhật vào SQLite
+            cartItems = cartDAO.getCartItems(username); // Load lại danh sách từ database
+            notifyDataSetChanged(); // Cập nhật toàn bộ danh sách để đảm bảo đồng bộ UI
             listener.onQuantityChanged();
         });
+
 
         // Xử lý giảm số lượng
         holder.btnDecrease.setOnClickListener(v -> {

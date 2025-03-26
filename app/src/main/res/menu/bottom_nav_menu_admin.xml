@@ -7,7 +7,7 @@
 
     <item
         android:id="@+id/order"
-        android:title="Orders"
+        android:title="Biils"
         android:icon="@drawable/baseline_orders_24" />
 
     <item

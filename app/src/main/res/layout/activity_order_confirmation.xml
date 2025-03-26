@@ -5,10 +5,21 @@
     android:orientation="vertical"
     android:padding="16dp">
 
+    <ImageButton
+        android:id="@+id/btnBack"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_margin="20dp"
+        android:background="@drawable/back_button"
+        android:padding="8dp"
+        android:src="@drawable/baseline_arrow_back_24"
+        android:contentDescription="Back"
+        android:radius="15dp"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="389dp"
-        android:layout_height="764dp" />
+        android:layout_height="700dp" />
 
     <TextView
         android:id="@+id/tvTotalPrice"
@@ -16,7 +27,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="8dp"
-        android:text="Tổng tiền: 0 VND"
+        android:text="Total: 0 VND"
         android:textSize="18sp"
         android:textStyle="bold" />
 
@@ -24,8 +35,10 @@
         android:id="@+id/btnConfirmOrder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Xác nhận đặt hàng"
-        android:layout_marginTop="16dp"
-        android:textColor="@android:color/white"/>
+        android:layout_margin="10dp"
+        android:backgroundTint="@color/button"
+        android:text="Confirm order"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp" />
 
 </LinearLayout>

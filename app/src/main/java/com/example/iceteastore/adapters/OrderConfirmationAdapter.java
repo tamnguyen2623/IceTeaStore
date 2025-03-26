@@ -30,8 +30,8 @@ public class OrderConfirmationAdapter extends RecyclerView.Adapter<OrderConfirma
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         ShoppingCart item = orderList.get(position);
         holder.tvProductName.setText(item.getName());
-        holder.tvQuantity.setText("Số lượng: " + item.getQuantity());
-        holder.tvPrice.setText("Giá: " + item.getPrice() + " VND");
+        holder.tvQuantity.setText("Quantity: " + item.getQuantity());
+        holder.tvPrice.setText("Price: $" + item.getPrice());
     }
 
     @Override

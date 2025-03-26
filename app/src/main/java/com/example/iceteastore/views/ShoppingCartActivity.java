@@ -56,7 +56,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
                     overridePendingTransition(0, 0);
                     return true;
                 } else if (itemId == R.id.bill) {
-                    startActivity(new Intent(ShoppingCartActivity.this, OrderActivity.class));
+                    startActivity(new Intent(ShoppingCartActivity.this, orderActivity.class));
                     overridePendingTransition(0, 0);
                     return true;
                 } else if (itemId == R.id.profile) {
@@ -78,7 +78,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
         username = sessionManager.getLoggedInUser();
 
         if (username == null || username.isEmpty()) {
-            Toast.makeText(this, "Lỗi: Không thể xác định người dùng!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Error: Unable to identify user!", Toast.LENGTH_SHORT).show();
             finish(); // Đóng activity nếu không có username hợp lệ
             return;
         }
@@ -108,7 +108,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
         for (ShoppingCart item : cartItems) {
             total += item.getPrice() * item.getQuantity();
         }
-        txtTotalPrice.setText(String.format("Total: $%.2f", total));
+//        txtTotalPrice.setText(String.format("Total: $%.2f", total));
         updateEmptyCartView();
     }
 
@@ -126,7 +126,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
     //Xử lý gửi đơn hàng
     private void sendOrder() {
         if (cartItems.isEmpty()) {
-            Toast.makeText(this, "Giỏ hàng trống! Vui lòng thêm sản phẩm trước khi đặt hàng.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Shopping cart is empty! Please add drinks before ordering.", Toast.LENGTH_SHORT).show();
         } else {
             // Chuyển qua OrderConfirmationActivity và truyền danh sách sản phẩm
             Intent intent = new Intent(this, OrderConfirmationActivity.class);

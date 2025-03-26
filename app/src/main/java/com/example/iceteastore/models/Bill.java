@@ -1,6 +1,7 @@
 package com.example.iceteastore.models;
 
 import java.util.Date;
+import java.util.List;
 
 public class Bill {
     private int id;
@@ -8,13 +9,15 @@ public class Bill {
     private double total;
     private String username;
     private String status;
+    private List<String> productNames;
 
-    public Bill(int id, Date date, double total, String username, String status) {
+    public Bill(int id, Date date, double total, String username, String status, List<String> productNames) {
         this.id = id;
         this.date = date;
         this.total = total;
         this.username = username;
         this.status = status;
+        this.productNames = productNames;
     }
 
     public int getId() {
@@ -55,5 +58,12 @@ public class Bill {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+    public List<String> getProductNames() {
+        return productNames;
+    }
+
+    public void setProductNames(List<String> productNames) {
+        this.productNames = productNames;
     }
 }

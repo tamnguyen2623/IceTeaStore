@@ -40,7 +40,7 @@ public class ProfileActivity extends AppCompatActivity {
                     overridePendingTransition(0, 0);
                     return true;
                 } else if (itemId == R.id.bill) {
-                    startActivity(new Intent(ProfileActivity.this, OrderActivity.class));
+                    startActivity(new Intent(ProfileActivity.this, orderActivity.class));
                     overridePendingTransition(0, 0);
                     return true;
                 } else if (itemId == R.id.home) {

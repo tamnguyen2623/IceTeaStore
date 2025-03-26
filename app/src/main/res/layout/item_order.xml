@@ -1,46 +1,63 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="12dp"
-    android:background="#FFFFFF"
-    android:elevation="2dp">
+    android:layout_margin="10dp"
+    android:background="@android:color/white"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="8dp">
 
-    <!-- Thông tin sản phẩm -->
-    <TextView
-        android:id="@+id/tvProductName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Tên sản phẩm"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:textColor="#000000"
-        android:paddingBottom="4dp" />
-
-    <!-- Layout chứa số lượng và giá -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingTop="4dp">
+        android:padding="12dp">
 
-        <!-- Số lượng -->
-        <TextView
-            android:id="@+id/tvQuantity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Số lượng: 1"
-            android:textSize="14sp"
-            android:textColor="#666666" />
+        <!-- Ảnh sản phẩm -->
+<!--        <ImageView-->
+<!--            android:id="@+id/tvImgProduct"-->
+<!--            android:layout_width="80dp"-->
+<!--            android:layout_height="80dp"-->
+<!--            android:scaleType="centerCrop" />-->
 
-        <!-- Giá sản phẩm -->
-        <TextView
-            android:id="@+id/tvPrice"
-            android:layout_width="wrap_content"
+        <!-- Thông tin sản phẩm -->
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:textColor="#FF5722"
-            android:textStyle="bold" />
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:paddingStart="12dp">
+
+            <TextView
+                android:id="@+id/tvProductName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tên sản phẩm"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvQuantity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="Số lượng: 1"
+                android:textColor="#666666"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tvPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="200,000 VND"
+                android:textColor="#FF0000"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
     </LinearLayout>
-</LinearLayout>
+
+</androidx.cardview.widget.CardView>

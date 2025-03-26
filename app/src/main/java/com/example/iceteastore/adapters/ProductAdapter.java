@@ -65,9 +65,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         holder.tvProductName.setText(product.getName());
         holder.tvPrice.setText("$" + product.getPrice());
 
-        String imageResource = product.getImage();
-        if (imageResource != null && !imageResource.isEmpty()) {
-            Glide.with(context).load(imageResource).into(holder.ivProductImage);
+        String imagePath = product.getImage();
+        if (!imagePath.isEmpty()) {
+            holder.ivProductImage.setImageBitmap(convertBase64ToBitmap(product.getImage()));
         } else {
             holder.ivProductImage.setImageResource(R.drawable.placeholder_image);
         }
@@ -106,8 +106,11 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             TextView tvDialogProductName = dialogView.findViewById(R.id.tvProductName);
             TextView tvDialogRating = dialogView.findViewById(R.id.tvRating);
             TextView tvDialogPrice = dialogView.findViewById(R.id.tvPrice);
+            TextView tvDialogDesciption = dialogView.findViewById(R.id.tvDescription);
 
+            ivDialogProductImage.setImageBitmap(convertBase64ToBitmap(product.getImage()));
             tvDialogProductName.setText(product.getName());
+            tvDialogDesciption.setText(product.getDescription());
             tvDialogRating.setText("⭐ " + product.getRating() + " (" + product.getReviews() + " reviews)");
             tvDialogPrice.setText("$" + product.getPrice());
 
@@ -159,7 +162,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     }
 
     public static class ProductViewHolder extends RecyclerView.ViewHolder {
-        TextView tvProductName, tvRating, tvPrice;
+        TextView tvProductName, tvRating, tvPrice, tvDescription;
         ImageView ivProductImage, ivFavorite;
         Button btnOrder;
 
@@ -171,6 +174,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             ivProductImage = itemView.findViewById(R.id.ivProductImage);
             ivFavorite = itemView.findViewById(R.id.ivFavorite); // Nút yêu thích
             btnOrder = itemView.findViewById(R.id.btn_order);
+            tvDescription = itemView.findViewById(R.id.tvDescription);
         }
     }
 

@@ -62,7 +62,7 @@ android:layout_marginBottom="5dp"
                 android:id="@+id/btnSelectImage"
                 android:layout_width="161dp"
                 android:layout_height="match_parent"
-                android:background="@drawable/border"
+                android:backgroundTint="@color/btn"
                 android:fontFamily="sans-serif-medium"
                 android:padding="12dp"
 
@@ -141,7 +141,7 @@ android:layout_marginBottom="5dp"
                 android:fontFamily="sans-serif-medium"
                 android:padding="14dp"
                 android:text="Update"
-                android:background="@drawable/border"
+                android:backgroundTint="@color/btn"
                 android:textColor="@color/sub_text"                android:textStyle="bold" />
 
         </LinearLayout>

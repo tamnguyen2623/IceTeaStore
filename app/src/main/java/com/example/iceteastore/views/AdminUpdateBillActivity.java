@@ -19,11 +19,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.iceteastore.R;
+import com.example.iceteastore.daos.BillDAO;
 import com.example.iceteastore.database_helper.DatabaseHelper;
+
+import java.util.List;
 
 public class AdminUpdateBillActivity extends AppCompatActivity {
 
-    private TextView txtBillId, txtPrice, tvUser;
+    private TextView txtBillId, txtPrice, tvUser, txtProductList;
     Spinner edtStatus;
     private ImageButton btnSave, btnBack;
     private DatabaseHelper databaseHelper;
@@ -38,6 +41,7 @@ public class AdminUpdateBillActivity extends AppCompatActivity {
         txtBillId = findViewById(R.id.txtBillId);
         txtPrice = findViewById(R.id.txtPrice);
         tvUser = findViewById(R.id.tv_user);
+        txtProductList = findViewById(R.id.txtProductList);
         edtStatus = findViewById(R.id.spinnerStatus);
         btnSave = findViewById(R.id.btn_save);
 
@@ -73,17 +77,36 @@ public class AdminUpdateBillActivity extends AppCompatActivity {
 
     private void loadBillDetails() {
         SQLiteDatabase db = databaseHelper.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM bills WHERE id = ?", new String[]{String.valueOf(billId)});
+
+        // Lấy thông tin hóa đơn
+        Cursor cursor = db.rawQuery("SELECT id, total, username, status FROM bills WHERE id = ?",
+                new String[]{String.valueOf(billId)});
 
         if (cursor.moveToFirst()) {
-            txtBillId.setText("Bill ID: " + cursor.getInt(0));
-            txtPrice.setText("Total: $" + cursor.getDouble(2));
-            tvUser.setText(cursor.getString(3));
-//            edtStatus.set("Status: "+cursor.getString(4));
+            txtBillId.setText("Bill code: " + cursor.getInt(0));
+            txtPrice.setText("Total: $" + cursor.getDouble(1));
+            tvUser.setText("User: " + cursor.getString(2));
 
+            // Đặt trạng thái ban đầu cho Spinner
+            String status = cursor.getString(3);
+            ArrayAdapter<CharSequence> adapter = (ArrayAdapter<CharSequence>) edtStatus.getAdapter();
+            int position = adapter.getPosition(status);
+            if (position >= 0) {
+                edtStatus.setSelection(position);
+            }
         }
         cursor.close();
+        db.close();
+
+        // 🔥 Thay vì viết lại SQL, sử dụng BillDAO để lấy danh sách sản phẩm
+        BillDAO billDAO = new BillDAO(this);
+        List<String> productNames = billDAO.getProductNamesByBillId(billId);
+
+        // Hiển thị danh sách sản phẩm trong TextView
+        String productList = "Products ordered: " + String.join(", ", productNames);
+        txtProductList.setText(productList);
     }
+
 
     private void updateBillStatus() {
         String newStatus = edtStatus.getSelectedItem().toString();
