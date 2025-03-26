@@ -8,6 +8,7 @@ import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProductManagementListActivity extends AppCompatActivity {
+    private SearchView searchView;
     private ArrayList<Product> productList;
     private ProductManagementAdapter adapter;
     private RecyclerView recyclerView;
@@ -79,6 +81,8 @@ public class ProductManagementListActivity extends AppCompatActivity {
 
         adapter = new ProductManagementAdapter(this, productList);
         recyclerView.setAdapter(adapter);
+        searchView = findViewById(R.id.searchView);
+        setupSearchView();
     }
 
     private void reloadProductList() {
@@ -93,6 +97,34 @@ public class ProductManagementListActivity extends AppCompatActivity {
             adapter.notifyDataSetChanged(); // Cập nhật RecyclerView
         }
     }
+
+    private void setupSearchView() {
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                filter(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filter(newText);
+                return false;
+            }
+        });
+    }
+
+    /** Bộ lọc tìm kiếm sản phẩm */
+    private void filter(String text) {
+        List<Product> filteredList = new ArrayList<>();
+        for (Product product : productList) {
+            if (product.getName().toLowerCase().contains(text.toLowerCase())) {
+                filteredList.add(product);
+            }
+        }
+        adapter.filterList(filteredList);
+    }
+
     @Override
     protected void onResume() {
         super.onResume();

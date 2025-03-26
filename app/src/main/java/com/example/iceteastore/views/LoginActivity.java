@@ -92,7 +92,7 @@ public class LoginActivity extends AppCompatActivity {
 
 //     chuyen sang trang bill admin
     private void navigateToAdmin() {
-        Intent intent = new Intent(this, AdminBillActivity.class);
+        Intent intent = new Intent(this, ProductManagementListActivity.class);
         startActivity(intent);
         finish();
     }
