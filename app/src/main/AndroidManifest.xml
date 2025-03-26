@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-
     <!-- Cấp quyền Internet -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -17,6 +16,12 @@
         android:theme="@style/Theme.IceTeaStore"
         tools:targetApi="31">
         <activity
+            android:name=".views.OrderSuccessActivity"
+            android:exported="false" />
+        <activity
+            android:name=".views.OrderConfirmationActivity"
+            android:exported="false" />
+        <activity
             android:name=".views.EditProductAdminActivity"
             android:exported="false" />
         <activity
@@ -29,16 +34,13 @@
             android:name=".views.RegisterActivity$AdminBillActivity"
             android:exported="false" />
         <activity
-            android:name=".views.DetailActivity"
+            android:name=".views.ProfileActivity"
             android:exported="false" />
         <activity
             android:name=".views.ShoppingCartActivity"
             android:exported="false" />
         <activity
             android:name=".views.EditProfileActivity"
-            android:exported="false" />
-        <activity
-            android:name=".views.ProfileActivity"
             android:exported="false" />
         <activity
             android:name=".views.LoginActivity"

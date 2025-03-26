@@ -28,14 +28,14 @@ public class ProductDAO {
         if (cursor.moveToFirst()) {
             do {
                 Product product = new Product(
-                        cursor.getInt(0),  // id
-                        cursor.getString(1),  // name
-                        cursor.getString(2),  // description
-                        cursor.getString(3),  // image
-                        cursor.getInt(4),  // quantity
-                        cursor.getDouble(5),  // price
-                        4.8f,  // Giả định rating
-                        50   // Giả định số lượng reviews
+                        cursor.getInt(0),
+                        cursor.getString(1),
+                        cursor.getString(2),
+                        cursor.getString(3),
+                        cursor.getInt(4),
+                        cursor.getDouble(5),
+                        4.8f,
+                        50
                 );
                 productList.add(product);
             } while (cursor.moveToNext());

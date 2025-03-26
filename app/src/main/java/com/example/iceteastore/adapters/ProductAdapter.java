@@ -26,7 +26,6 @@ import com.example.iceteastore.daos.ShoppingCartDAO;
 import com.example.iceteastore.models.Product;
 import com.example.iceteastore.models.ShoppingCart;
 import com.example.iceteastore.utils.SessionManager;
-import com.example.iceteastore.views.DetailActivity;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
@@ -64,7 +63,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         }
 
         holder.tvProductName.setText(product.getName());
-    holder.tvPrice.setText("$" + product.getPrice());
+        holder.tvPrice.setText("$" + product.getPrice());
 
         String imageResource = product.getImage();
         if (imageResource != null && !imageResource.isEmpty()) {
@@ -111,6 +110,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             tvDialogProductName.setText(product.getName());
             tvDialogRating.setText("⭐ " + product.getRating() + " (" + product.getReviews() + " reviews)");
             tvDialogPrice.setText("$" + product.getPrice());
+
+
 
             Button btnAddToOrder = dialogView.findViewById(R.id.btn_order);
 

@@ -74,6 +74,10 @@ public class HomeActivity extends AppCompatActivity {
                     startActivity(new Intent(HomeActivity.this, ShoppingCartActivity.class));
                     overridePendingTransition(0, 0);
                     return true;
+                } else if (itemId == R.id.bill) {
+                    startActivity(new Intent(HomeActivity.this, OrderActivity.class));
+                    overridePendingTransition(0, 0);
+                    return true;
                 } else if (itemId == R.id.profile) {
                     startActivity(new Intent(HomeActivity.this, ProfileActivity.class));
                     overridePendingTransition(0, 0);

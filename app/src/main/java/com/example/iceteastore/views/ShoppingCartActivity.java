@@ -1,13 +1,16 @@
 package com.example.iceteastore.views;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -17,8 +20,12 @@ import com.example.iceteastore.R;
 import com.example.iceteastore.adapters.ShoppingCartAdapter;
 import com.example.iceteastore.daos.ShoppingCartDAO;
 import com.example.iceteastore.models.ShoppingCart;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 import com.example.iceteastore.utils.SessionManager;
 
+
+import java.io.Serializable;
 import java.util.List;
 
 public class ShoppingCartActivity extends AppCompatActivity {
@@ -28,7 +35,6 @@ public class ShoppingCartActivity extends AppCompatActivity {
     private List<ShoppingCart> cartItems;
     private TextView txtTotalPrice, txtEmptyCart;
     private Button btnSendOrder;
-    private ImageButton btnBack;
     private ShoppingCartDAO cartDAO;
     private String username;  // Giả định username (có thể lấy từ SharedPreferences)
 
@@ -37,11 +43,35 @@ public class ShoppingCartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
 
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        // Đánh dấu Home là item được chọn
+        bottomNavigationView.setSelectedItemId(R.id.shopping_cart);
+        // Xử lý chuyển trang khi bấm vào item navbar
+        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int itemId = item.getItemId();
+                if (itemId == R.id.home) {
+                    startActivity(new Intent(ShoppingCartActivity.this, HomeActivity.class));
+                    overridePendingTransition(0, 0);
+                    return true;
+                } else if (itemId == R.id.bill) {
+                    startActivity(new Intent(ShoppingCartActivity.this, OrderActivity.class));
+                    overridePendingTransition(0, 0);
+                    return true;
+                } else if (itemId == R.id.profile) {
+                    startActivity(new Intent(ShoppingCartActivity.this, ProfileActivity.class));
+                    overridePendingTransition(0, 0);
+                    return true;
+                }
+                return false;
+            }
+        });
+
         recyclerView = findViewById(R.id.recyclerViewCart);
         txtTotalPrice = findViewById(R.id.txtTotalPrice);
         txtEmptyCart = findViewById(R.id.txtEmptyCart);
         btnSendOrder = findViewById(R.id.btnSendOrder);
-        btnBack = findViewById(R.id.btnBack);
         cartDAO = new ShoppingCartDAO(this);
         // Lấy username từ SessionManager
         SessionManager sessionManager = new SessionManager(this);
@@ -60,8 +90,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
         calculateTotalPrice();
-
-        btnBack.setOnClickListener(v -> finish());
+        
         btnSendOrder.setOnClickListener(v -> sendOrder());
     }
 
@@ -94,18 +123,23 @@ public class ShoppingCartActivity extends AppCompatActivity {
         }
     }
 
-    // Xử lý gửi đơn hàng
+    //Xử lý gửi đơn hàng
     private void sendOrder() {
         if (cartItems.isEmpty()) {
             Toast.makeText(this, "Giỏ hàng trống! Vui lòng thêm sản phẩm trước khi đặt hàng.", Toast.LENGTH_SHORT).show();
         } else {
-            cartDAO.clearCart(username);
-            cartItems.clear();
-            adapter.notifyDataSetChanged();
-            calculateTotalPrice();
-            Toast.makeText(this, "Đơn hàng đã gửi thành công!", Toast.LENGTH_SHORT).show();
+            // Chuyển qua OrderConfirmationActivity và truyền danh sách sản phẩm
+            Intent intent = new Intent(this, OrderConfirmationActivity.class);
+            intent.putExtra("cartItems", (Serializable) cartItems);
+            startActivity(intent);
         }
     }
+
+    protected void onResume() {
+        super.onResume();
+        reloadCart();
+    }
+
     private void reloadCart() {
         cartItems.clear();
         cartItems.addAll(cartDAO.getCartItems(username));
