@@ -14,6 +14,7 @@ import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
+
 import com.example.iceteastore.R;
 import com.example.iceteastore.adapters.CarouselAdapter;
 import com.example.iceteastore.adapters.ProductAdapter;
@@ -23,8 +24,10 @@ import com.example.iceteastore.models.Product;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.tabs.TabLayout;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import me.relex.circleindicator.CircleIndicator3;
 
 public class HomeActivity extends AppCompatActivity {
@@ -53,14 +56,14 @@ public class HomeActivity extends AppCompatActivity {
         // Đánh dấu Home là item được chọn
         bottomNavigationView.setSelectedItemId(R.id.home);
 
-        // Ẩn/hiện menu theo role
-        if ("user".equals(role)) {
-            bottomNavigationView.getMenu().findItem(R.id.home).setVisible(true);
-            bottomNavigationView.getMenu().findItem(R.id.shopping_cart).setVisible(true);
-            bottomNavigationView.getMenu().findItem(R.id.profile).setVisible(true);
-            bottomNavigationView.getMenu().findItem(R.id.product).setVisible(false);
-            bottomNavigationView.getMenu().findItem(R.id.order).setVisible(false);
-        }
+
+//        if ("user".equals(role)) {
+//            bottomNavigationView.getMenu().findItem(R.id.home).setVisible(true);
+//            bottomNavigationView.getMenu().findItem(R.id.shopping_cart).setVisible(true);
+//            bottomNavigationView.getMenu().findItem(R.id.profile).setVisible(true);
+//            bottomNavigationView.getMenu().findItem(R.id.product).setVisible(false);
+//            bottomNavigationView.getMenu().findItem(R.id.order).setVisible(false);
+//        }
 
         // Xử lý chuyển trang khi bấm vào item navbar
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
@@ -68,12 +71,16 @@ public class HomeActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int itemId = item.getItemId();
                 if (itemId == R.id.shopping_cart) {
-//                    startActivity(new Intent(HomeActivity.this, ProductManagementListActivity.class));
-//                    overridePendingTransition(0, 0);
+                    startActivity(new Intent(HomeActivity.this, ShoppingCartActivity.class));
+                    overridePendingTransition(0, 0);
+                    return true;
+                } else if (itemId == R.id.bill) {
+                    startActivity(new Intent(HomeActivity.this, OrderActivity.class));
+                    overridePendingTransition(0, 0);
                     return true;
                 } else if (itemId == R.id.profile) {
-//                    startActivity(new Intent(HomeActivity.this, ProductManagementActivity.class));
-//                    overridePendingTransition(0, 0);
+                    startActivity(new Intent(HomeActivity.this, ProfileActivity.class));
+                    overridePendingTransition(0, 0);
                     return true;
                 }
                 return false;
@@ -118,7 +125,9 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 
-    /** Cấu hình Carousel */
+    /**
+     * Cấu hình Carousel
+     */
     private void setupCarousel() {
         carouselItems = new ArrayList<>();
         carouselItems.add(new CarouselItem("Lemon Tea", "$10.40", R.drawable.food1));
@@ -129,7 +138,9 @@ public class HomeActivity extends AppCompatActivity {
         indicator.setViewPager(viewPager); // Gắn indicator với ViewPager2
     }
 
-    /** Cấu hình TabLayout */
+    /**
+     * Cấu hình TabLayout
+     */
     private void setupTabs() {
         tabLayout.addTab(tabLayout.newTab().setText("All Tea"));
         tabLayout.addTab(tabLayout.newTab().setText("Most Popular"));
@@ -144,14 +155,18 @@ public class HomeActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onTabUnselected(TabLayout.Tab tab) {}
+            public void onTabUnselected(TabLayout.Tab tab) {
+            }
 
             @Override
-            public void onTabReselected(TabLayout.Tab tab) {}
+            public void onTabReselected(TabLayout.Tab tab) {
+            }
         });
     }
 
-    /** Cấu hình tìm kiếm */
+    /**
+     * Cấu hình tìm kiếm
+     */
     private void setupSearchView() {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -168,7 +183,9 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 
-    /** Bộ lọc tìm kiếm sản phẩm */
+    /**
+     * Bộ lọc tìm kiếm sản phẩm
+     */
     private void filter(String text) {
         List<Product> filteredList = new ArrayList<>();
         for (Product product : productList) {
@@ -179,7 +196,9 @@ public class HomeActivity extends AppCompatActivity {
         productAdapter.filterList(filteredList);
     }
 
-    /** Bộ lọc sản phẩm theo danh mục */
+    /**
+     * Bộ lọc sản phẩm theo danh mục
+     */
     private void filterByCategory(int position) {
         List<Product> filteredList = new ArrayList<>();
         switch (position) {
@@ -204,7 +223,9 @@ public class HomeActivity extends AppCompatActivity {
         productAdapter.filterList(filteredList);
     }
 
-    /** Thêm dữ liệu mẫu vào SQLite (Chỉ chạy 1 lần) */
+    /**
+     * Thêm dữ liệu mẫu vào SQLite (Chỉ chạy 1 lần)
+     */
     private void insertSampleData() {
         productDAO.insertProduct(new Product(1, "Milk Tea", "Delicious tea", "food1", 100, 10.40, 5.0f, 120 ));
         productDAO.insertProduct(new Product(2, "Ice Tea", "Healthy and tasty", "food2", 80, 14.10, 4.8f, 90));

@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "IceTeaStore.db";
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 20;
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -41,6 +41,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "date TEXT, " +
                 "total REAL, " +
                 "username TEXT, " +
+                "status TEXT, " +
                 "FOREIGN KEY(username) REFERENCES users(username))");
 
         // Tạo bảng Order
@@ -56,7 +57,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // Tạo bảng ShoppingCart
         db.execSQL("CREATE TABLE shopping_cart (" +
                 "username TEXT, " +
+                "name TEXT, " +
                 "productId INTEGER, " +
+                "imageResource TEXT, " +
                 "quantity INTEGER, " +
                 "price REAL, " +
                 "PRIMARY KEY(username, productId), " +

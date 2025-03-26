@@ -22,6 +22,30 @@
             android:name=".views.orderActivity"
             android:exported="false" />
         <activity
+            android:name=".views.OrderConfirmationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".views.EditProductAdminActivity"
+            android:exported="false" />
+        <activity
+            android:name=".views.AdminUpdateBillActivity"
+            android:exported="false" />
+        <activity
+            android:name=".views.AdminBillActivity"
+            android:exported="false" />
+        <activity
+            android:name=".views.RegisterActivity$AdminBillActivity"
+            android:exported="false" />
+        <activity
+            android:name=".views.ProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".views.ShoppingCartActivity"
+            android:exported="false" />
+        <activity
+            android:name=".views.EditProfileActivity"
+            android:exported="false" />
+        <activity
             android:name=".views.LoginActivity"
             android:exported="true">
             <intent-filter>

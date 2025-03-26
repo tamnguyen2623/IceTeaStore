@@ -84,11 +84,19 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+//    private void navigateToAdmin() {
+//        Intent intent = new Intent(this, ProductManagementListActivity.class);
+//        startActivity(intent);
+//        finish();
+//    }
+
+//     chuyen sang trang bill admin
     private void navigateToAdmin() {
         Intent intent = new Intent(this, ProductManagementListActivity.class);
         startActivity(intent);
         finish();
     }
+
 
     private void navigateToHome() {
         Intent intent = new Intent(this, HomeActivity.class);

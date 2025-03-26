@@ -12,6 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:background="@color/card_bg"
+
         android:padding="12dp">
 
         <ImageView
@@ -65,6 +67,32 @@
                 android:textSize="12sp"
                 android:textColor="@color/gray"
                 android:layout_marginTop="4dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/btn_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/border"
+                android:textColor="@color/sub_text"
+                cardView:srcCompat="@drawable/baseline_edit_24" />
+
+            <ImageButton
+                android:id="@+id/btn_delete"
+                android:layout_width="match_parent"
+                android:background="@drawable/border"
+                android:textColor="@color/sub_text"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                cardView:srcCompat="@drawable/baseline_delete_24" />
+
         </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>
