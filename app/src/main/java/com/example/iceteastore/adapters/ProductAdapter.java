@@ -63,6 +63,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         }
 
         holder.tvProductName.setText(product.getName());
+        holder.tvRating.setText("⭐ " + product.getRating() + " (" + product.getReviews() + " reviews)");
         holder.tvPrice.setText("$" + product.getPrice());
 
         String imagePath = product.getImage();
