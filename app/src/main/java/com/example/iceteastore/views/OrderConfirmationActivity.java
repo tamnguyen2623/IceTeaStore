@@ -1,6 +1,8 @@
 package com.example.iceteastore.views;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -14,8 +16,10 @@ import com.example.iceteastore.R;
 import com.example.iceteastore.adapters.OrderConfirmationAdapter;
 import com.example.iceteastore.daos.BillDAO;
 import com.example.iceteastore.daos.ShoppingCartDAO;
+import com.example.iceteastore.daos.UserDAO;
 import com.example.iceteastore.models.Bill;
 import com.example.iceteastore.models.ShoppingCart;
+import com.example.iceteastore.models.User;
 import com.example.iceteastore.utils.SessionManager;
 
 import java.text.SimpleDateFormat;
@@ -27,16 +31,28 @@ public class OrderConfirmationActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private OrderConfirmationAdapter adapter;
-    private TextView tvTotalPrice;
+    private TextView tvTotalPrice, fullName, phoneNumber, address;
     private Button btnConfirmOrder;
     private List<ShoppingCart> cartItems;
     private double totalPrice;
     private ImageButton btnBack;
+    private UserDAO userDAO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_confirmation);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("LoginSession", Context.MODE_PRIVATE);
+        String username= sharedPreferences.getString("username", null);
+        userDAO = new UserDAO(this);
+        User user = userDAO.getUserByUsername(username);
+        fullName = findViewById(R.id.fullName);
+        phoneNumber = findViewById(R.id.phoneNumber);
+        address = findViewById(R.id.address);
+        fullName.setText(user.getFullName());
+        phoneNumber.setText(user.getPhoneNumber());
+        address.setText(user.getAddress());
 
         recyclerView = findViewById(R.id.recyclerView);
         tvTotalPrice = findViewById(R.id.tvTotalPrice);
