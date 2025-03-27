@@ -105,5 +105,19 @@ public class BillDAO {
         db.close();
         return result > 0;
     }
+
+    public long insertOrder(long billId, int productId, int quantity, double price) {
+        db = dbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("billId", billId);
+        values.put("productId", productId);
+        values.put("quantity", quantity);
+        values.put("price", price);
+
+        long result = db.insert("orders", null, values);
+        db.close();
+
+        return result;
+    }
 }
 

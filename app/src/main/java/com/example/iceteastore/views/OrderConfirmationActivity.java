@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.iceteastore.R;
 import com.example.iceteastore.adapters.OrderConfirmationAdapter;
 import com.example.iceteastore.daos.BillDAO;
+import com.example.iceteastore.daos.OrderDAO;
 import com.example.iceteastore.daos.ShoppingCartDAO;
 import com.example.iceteastore.daos.UserDAO;
 import com.example.iceteastore.models.Bill;
@@ -105,7 +107,6 @@ public class OrderConfirmationActivity extends AppCompatActivity {
     }
 
     // Xác nhận đơn hàng
-    // Xác nhận đơn hàng
     private void confirmOrder() {
         String username = getLoggedInUsername(); // Lấy username từ session
 
@@ -120,12 +121,34 @@ public class OrderConfirmationActivity extends AppCompatActivity {
             BillDAO billDAO = new BillDAO(this);
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
             long billId = billDAO.insertBill(sdf.format(date), totalPrice, username, "Pending");
-
+            Log.d("OrderConfirmation", "User: " + username);
+            Log.d("OrderConfirmation", "Total Price: $" + totalPrice);
+            for (ShoppingCart item : cartItems) {
+                Log.d("OrderConfirmation", "Product: " + item.getName() +
+                        ", Quantity: " + item.getQuantity() +
+                        ", Price: $" + item.getPrice());
+            }
             if (billId != -1) {
+                // Thêm các mục vào bảng orders
+                OrderDAO orderDAO = new OrderDAO(this);
+                orderDAO.open(); // Mở kết nối CSDL
+                for (ShoppingCart item : cartItems) {
+                    long orderResult = orderDAO.insertOrder(
+                            billId,
+                            item.getProductId(),  // Giả sử ShoppingCart có phương thức getProductId()
+                            item.getQuantity(),
+                            item.getPrice()
+                    );
+
+                    if (orderResult == -1) {
+                        Log.e("OrderConfirmation", "Failed to insert order for product ID: " + item.getProductId());
+                    }
+                }
+                orderDAO.close(); // Đóng kết nối CSDL
+
                 // Xóa giỏ hàng sau khi đặt hàng thành công
                 ShoppingCartDAO shoppingCartDAO = new ShoppingCartDAO(this);
                 shoppingCartDAO.clearCart(username);
-
                 Toast.makeText(this, "Order confirmed!", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(OrderConfirmationActivity.this, OrdersuccessfulActivity.class);
                 startActivity(intent);
@@ -137,6 +160,7 @@ public class OrderConfirmationActivity extends AppCompatActivity {
             e.printStackTrace();
             Toast.makeText(this, "Error creating order!", Toast.LENGTH_SHORT).show();
         }
+
     }
 
 }

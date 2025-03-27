@@ -85,7 +85,7 @@ public class AdminUpdateBillActivity extends AppCompatActivity {
         if (cursor.moveToFirst()) {
             txtBillId.setText("Bill code: " + cursor.getInt(0));
             txtPrice.setText("Total: $" + cursor.getDouble(1));
-            tvUser.setText("User: " + cursor.getString(2));
+            tvUser.setText("Customer: " + cursor.getString(2));
 
             // Đặt trạng thái ban đầu cho Spinner
             String status = cursor.getString(3);

@@ -65,4 +65,14 @@ public class OrderDAO {
         return orders;
     }
 
+    public long insertOrder(long billId, int productId, int quantity, double price) {
+        ContentValues values = new ContentValues();
+        values.put("billId", billId);
+        values.put("productId", productId);
+        values.put("quantity", quantity);
+        values.put("price", price);
+
+        return database.insert("orders", null, values);
+    }
+
 }
